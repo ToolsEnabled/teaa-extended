@@ -19,3 +19,10 @@ The included component versions and source identities are recorded in `component
 The package does not configure telemetry or automatic update checks. ToolsEngine file operations use the selected workspace. Its explicitly selected public-web tools send the requested URL and request metadata to that destination; explicit browser modes can contact visited sites and persist browser data in their configured profile. Optional setup downloads use the configured package sources as documented by ToolsEngine. Fleet provider/model traffic occurs only after an operator selects and invokes a provider. FRA network use is opt-in: self-hosted or hosted FRA routing uses the endpoint configured for that device/account, and installation does not enroll an account. A hosted FRA account/relay is a separate service with its own operator and privacy terms.
 
 Functional qualification and exact remaining limits are recorded in the lane's `REPORT.txt` and `RESULTS.json`; package metadata records the source and component identities. This artifact is a reviewable alpha build and is not a claim of hosted-production readiness.
+
+## Report a problem or get help
+
+- **Something broken or confusing:** [open an issue](https://github.com/ToolsEnabled/teaa-extended/issues/new/choose) and pick **Report a problem**. Include the version that `teaa doctor` shows and the steps to reproduce. Never paste passwords, tokens, API keys or private keys.
+- **An idea:** open an issue and pick **Suggest an improvement**.
+- **Your toolsenabled.ai account or the hosted service:** email support@toolsenabled.ai.
+- **A security problem:** report it privately as the [security policy](https://github.com/ToolsEnabled/.github/blob/main/SECURITY.md) describes, never in a public issue.
