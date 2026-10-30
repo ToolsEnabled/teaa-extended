@@ -23,9 +23,9 @@ test('Linux private state creation creates a new leaf with owner-only mode', { s
 
 test('Hub gateway configuration binds the enrolled account connection to the local Fleet tree', () => {
   const runtime = gateway.buildGatewayRuntime({
-    packageRoot: '/opt/teaa', dataDirectory: '/home/owner/.local/share/toolsenabled-agent-kit',
-    state: '/home/owner/.local/share/toolsenabled-agent-kit/extended/devices/default',
-    fleetStateRoot: '/home/owner/.local/share/toolsenabled-agent-kit/fleetV5-state',
+    packageRoot: '/opt/teaa', dataDirectory: '/tmp/teaa-test-owner/.local/share/toolsenabled-agent-kit',
+    state: '/tmp/teaa-test-owner/.local/share/toolsenabled-agent-kit/extended/devices/default',
+    fleetStateRoot: '/tmp/teaa-test-owner/.local/share/toolsenabled-agent-kit/fleetV5-state',
     treeKey: 'local', runtime: '/usr/bin/node', accountUrl: 'https://account.example.test',
     relayPairId: `pair-${'a'.repeat(32)}`, machine: 'desk',
   });
@@ -82,7 +82,67 @@ test('starting the Hub creates a private FRA gateway from the enrolled account p
   }
 });
 
+
+test('Hub-first and FRA-open-first device state creation both use the private path helper', { timeout: 10_000 }, async () => {
+  const fraDevice = require('../vendor/hub/remote/fra-device.cjs');
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'teaa-hub-fra-state-order-'));
+  try {
+    for (const orderName of ['hub-first', 'fra-open-first']) {
+      const dataDirectory = path.join(scratch, orderName);
+      const state = path.join(dataDirectory, 'extended', 'devices', 'default');
+      const pair = `pair-${(orderName === 'hub-first' ? 'c' : 'd').repeat(32)}`;
+      const events = [];
+      const createPrivateDataPath = directory => {
+        events.push(['create', directory]);
+        fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
+      };
+      const assertPrivateDataPath = directory => {
+        events.push(['assert', directory]);
+        assert.equal(fs.statSync(directory).isDirectory(), true);
+      };
+      const openDevice = () => fraDevice.ensurePrivateDirectory(state, {
+        platform: 'win32',
+        windowsCreate: directory => {
+          events.push(['windows-helper', directory]);
+          fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
+        },
+      });
+      const startHub = async () => gateway.startGateway({
+        packageRoot: path.resolve('/opt/teaa'), dataDirectory, state,
+        fleetStateRoot: path.join(dataDirectory, 'fleetV5-state'), treeKey: 'local',
+        runtime: '/usr/bin/node', accountUrl: 'https://account.example.test', machine: 'desk',
+        discoverRelayPair: async input => {
+          events.push(['discover', input.state]);
+          assert.equal(fs.existsSync(input.state), true, 'FRA discovery must see helper-created state');
+          return pair;
+        },
+        createPrivateDataPath, assertPrivateDataPath,
+        startTime: () => 'fake-process-start', alive: () => true,
+        spawnProcess: (_exe, args) => {
+          const config = JSON.parse(fs.readFileSync(args.at(-1), 'utf8'));
+          fs.writeFileSync(config.log, `${JSON.stringify({ at: new Date().toISOString(), machine: 'desk', connected: 'machine-a' })}\n`);
+          return { pid: 515151, unref() {}, kill() {} };
+        },
+      });
+      if (orderName === 'hub-first') {
+        await startHub();
+        openDevice();
+        assert.deepEqual(events.slice(0, 3), [['create', state], ['assert', state], ['discover', state]]);
+        assert.deepEqual(events.at(-1), ['windows-helper', state]);
+      } else {
+        openDevice();
+        await startHub();
+        assert.deepEqual(events.slice(0, 4), [
+          ['windows-helper', state], ['create', state], ['assert', state], ['discover', state],
+        ]);
+      }
+    }
+  } finally {
+    fs.rmSync(scratch, { recursive: true, force: true });
+  }
+});
+
 test('Hub gateway child environment drops provider and Node preload variables', () => {
-  const env = gateway.gatewayEnvironment({ PATH: '/usr/bin', HOME: '/home/owner', NODE_OPTIONS: '--require hostile.js', OPENAI_API_KEY: 'synthetic' });
-  assert.deepEqual(env, { PATH: '/usr/bin', HOME: '/home/owner' });
+  const env = gateway.gatewayEnvironment({ PATH: '/usr/bin', HOME: '/tmp/teaa-test-owner', NODE_OPTIONS: '--require hostile.js', OPENAI_API_KEY: 'synthetic' });
+  assert.deepEqual(env, { PATH: '/usr/bin', HOME: '/tmp/teaa-test-owner' });
 });

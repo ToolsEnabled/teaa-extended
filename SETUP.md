@@ -1,8 +1,8 @@
-This guide covers TEAA Extended 0.5.0-alpha.6 setup and first-run behavior.
+See README.md for the TEAA Extended 0.5.0-alpha.5 worktree and its pending qualification boundary.
 
 # Setup
 
-TEAA Extended 0.5.0-alpha.6 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
+TEAA Extended 0.5.0-alpha.7 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
 
 ## Private data path
 

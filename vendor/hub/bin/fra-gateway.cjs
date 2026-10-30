@@ -1,8 +1,9 @@
 'use strict';
 
-// FRA Hub gateway. It opens an outbound relay connection for each enrolled
-// machine and serves the FRA stream protocol over that connection. It does
-// not expose a listener reachable from other machines.
+// FRA HUB GATEWAY. Outbound only: it listens on nothing reachable from
+// another machine. It holds one relay connection per enrolled machine to the
+// FRA relay through an SSH local forward to its loopback front door, and serves
+// the fra-stream protocol on each. A stream opened on machine M's
 // connection runs hub-lead-bridge.cjs --machine M: the machine name comes from
 // WHICH authenticated relay pair carried the request (sealed end to end with
 // that machine's pinned identity key), never from anything the machine sends.

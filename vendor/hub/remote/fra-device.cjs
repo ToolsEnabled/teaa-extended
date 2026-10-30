@@ -24,6 +24,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const { spawnSync } = require('node:child_process');
 const { TextDecoder } = require('node:util');
 
 const DEVICE_CREDENTIAL_VAULT_KEY = 'custom.online_fra_device_credential_v1';
@@ -74,11 +75,28 @@ function canonicalPath(value) {
   return process.platform === 'win32' ? resolved.toLowerCase() : resolved;
 }
 
-function ensurePrivateDirectory(input, { create = true } = {}) {
+function createWindowsPrivateDirectory(directory) {
+  const systemRoot = process.env.SystemRoot || process.env.WINDIR || 'C:\\Windows';
+  const powershell = path.join(systemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
+  const script = path.resolve(__dirname, '..', '..', 'fleet', 'tools', 'windows-state-security.ps1');
+  const checked = spawnSync(powershell, ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', script], {
+    input: JSON.stringify({ operation: 'create', path: directory }),
+    encoding: 'utf8', windowsHide: true, timeout: 30_000, maxBuffer: 256 * 1024,
+  });
+  let answer;
+  try { answer = JSON.parse((checked.stdout || '').replace(/^\uFEFF/, '')); } catch {}
+  if (checked.error || checked.status !== 0 || answer?.ok !== true) {
+    throw vaultFailure('FRA_VAULT_PATH_UNSAFE', 'The FRA state directory could not be created with Windows private-state security.');
+  }
+}
+
+function ensurePrivateDirectory(input, { create = true, platform = process.platform,
+  windowsCreate = createWindowsPrivateDirectory } = {}) {
   if (typeof input !== 'string' || !path.isAbsolute(input)) {
     throw vaultFailure('FRA_VAULT_PATH_UNSAFE', 'The FRA state directory must be an absolute path.');
   }
   const directory = path.resolve(input);
+  if (create && platform === 'win32') windowsCreate(directory);
   const parsed = path.parse(directory);
   let cursor = parsed.root;
   const remainder = directory.slice(parsed.root.length).split(path.sep).filter(Boolean);
@@ -87,7 +105,7 @@ function ensurePrivateDirectory(input, { create = true } = {}) {
     let stat;
     try { stat = fs.lstatSync(cursor); }
     catch (error) {
-      if (error.code !== 'ENOENT' || !create) throw error;
+      if (error.code !== 'ENOENT' || !create || platform === 'win32') throw error;
       try { fs.mkdirSync(cursor, { mode: 0o700 }); }
       catch (mkdirError) { if (mkdirError.code !== 'EEXIST') throw mkdirError; }
       stat = fs.lstatSync(cursor);
@@ -988,5 +1006,5 @@ function nodeSupportsFra(version) {
   const [major, minor] = String(version).replace(/^v/, '').split('.').map(Number);
   return major > 22 || (major === 22 && minor >= 19);
 }
-module.exports = { fileVault, nodeSupportsFra, readPrivateJsonFile, readPrivateTextFile, validatePrivateFilePath,
+module.exports = { fileVault, nodeSupportsFra, ensurePrivateDirectory, readPrivateJsonFile, readPrivateTextFile, validatePrivateFilePath,
   appendPrivateTextFile, parseStrictJson, validateSecureOrigin, validateCliArguments };

@@ -6,6 +6,12 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 
+test('Extended CLI version matches the package release identity', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  const versionSource = fs.readFileSync(path.join(root, 'src/version.js'), 'utf8');
+  assert.ok(versionSource.includes(`export const VERSION = '${pkg.version}';`));
+});
+
 test('select-hub stores the real FRA route with package-owned client state and restores local Fleet', async () => {
   const source = fs.readFileSync(path.join(root, 'bin/teaa-extended.js'), 'utf8');
   const code = source.replace(/^import .*;$/mg, '').replace(/^#!.*\n/, '')

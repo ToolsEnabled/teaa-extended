@@ -7,7 +7,7 @@
   "portingPatch": {
     "path": "remote/remote-lead-mcp.cjs",
     "upstreamSha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
-    "packagedSha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
+    "packagedSha256": "d0748b34c40570832bfd71f35742345a2ff0948911a2c243624fec0629c916e2",
     "reason": "Add native Windows process-ancestry observation for Fleet V5 Hub workers; Linux behavior remains on /proc path."
   },
   "files": [
@@ -120,8 +120,8 @@
     {
       "path": "bin/fra-gateway.cjs",
       "upstreamSha256": "3c3771ea5aa8d3d63939c1f662b1e534b923088c6c0844cd102c036b5d07abb8",
-      "packagedSha256": "76970e0ed22cc1ee33624d17650c3d090433085bc71566af8516a5a1999d4eb6",
-      "reason": "Probe the account service at /v1/health used by the hosted and self-hosted releases, with /healthz fallback for older fronts."
+      "packagedSha256": "b63707a10c1530b4ad8d6bb231f3899d8f9c1a0ba784d25d2792ce8738fe5862",
+      "reason": "Probe the account service at /v1/health with /healthz fallback; remove private development host references from comments for the public source export."
     },
     {
       "path": "bin/gateway-compatibility.cjs",
@@ -136,10 +136,22 @@
       "reason": "Add the Windows package identity verifier used to validate the exact installed Hub component tree and ACLs."
     },
     {
+      "path": "remote/fra-device.cjs",
+      "upstreamSha256": "e1a2398c1fb2f75c8e14fe13167dfc1fae594b3722d5f47801bfb21fdf6b6f6a",
+      "packagedSha256": "e5dee3a90ca3ed6579e25c8f5d746d6df44b797f9e37ef9d29494e374615c805",
+      "reason": "Create missing Windows FRA device-state directories through the vendored windows-state-security helper so elevated Hub-first and open-first flows give the selected tree to the current account; retain fail-closed ownership and path checks."
+    },
+    {
+      "path": "remote/fra-stream.cjs",
+      "upstreamSha256": "2df2b6eb2e4d78440373d691d5d03153da32847941a93419cef3e6213c3c92f3",
+      "packagedSha256": "eacbac3625c8834091180117fe0769c4b4256fdcd22b4802401e34e770e9f6e1",
+      "reason": "Propagate terminal FRA disconnections out of the current byte-stream pump so the persistent MCP supervisor can fail in-flight calls promptly and reattach with bounded backoff."
+    },
+    {
       "path": "remote/remote-lead-mcp.cjs",
       "upstreamSha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
-      "packagedSha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
-      "reason": "Add native Windows Fleet V5 process-ancestry observation; query the selected gateway compatibility claim before FRA open, include it in the stream request, and export main for the bundled client wrapper."
+      "packagedSha256": "ba6764a5c46b6b9760786bca443b56624b84319e27973a464d7d4c549739b608",
+      "reason": "Add native Windows process-ancestry observation and FRA compatibility claims; race Hub requests against relay closure and a 25-second deadline, close stale sessions and reattach; remove private development host references from comments for the public source export."
     }
   ],
   "packagedInventory": {
@@ -153,8 +165,8 @@
       },
       {
         "path": "bin/fra-gateway.cjs",
-        "size": 12340,
-        "sha256": "76970e0ed22cc1ee33624d17650c3d090433085bc71566af8516a5a1999d4eb6",
+        "size": 12251,
+        "sha256": "b63707a10c1530b4ad8d6bb231f3899d8f9c1a0ba784d25d2792ce8738fe5862",
         "mode": 420
       },
       {
@@ -189,24 +201,24 @@
       },
       {
         "path": "remote/fra-device.cjs",
-        "size": 47107,
-        "sha256": "e1a2398c1fb2f75c8e14fe13167dfc1fae594b3722d5f47801bfb21fdf6b6f6a",
+        "size": 48283,
+        "sha256": "e5dee3a90ca3ed6579e25c8f5d746d6df44b797f9e37ef9d29494e374615c805",
         "mode": 420
       },
       {
         "path": "remote/fra-stream.cjs",
-        "size": 21216,
-        "sha256": "2df2b6eb2e4d78440373d691d5d03153da32847941a93419cef3e6213c3c92f3",
+        "size": 21236,
+        "sha256": "eacbac3625c8834091180117fe0769c4b4256fdcd22b4802401e34e770e9f6e1",
         "mode": 420
       },
       {
         "path": "remote/remote-lead-mcp.cjs",
-        "size": 25995,
-        "sha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
+        "size": 27062,
+        "sha256": "ba6764a5c46b6b9760786bca443b56624b84319e27973a464d7d4c549739b608",
         "mode": 420
       }
     ],
-    "filesSha256": "0a4b753543f0f477133be26d9a5eb27f47ed74293fd45a4f964a548820d26c5a",
+    "filesSha256": "d3dee78ffc65f932f37be75ec9e4a80a80078fdd2908bec483efa67a1b33458e",
     "selfReference": "PROVENANCE.json is omitted here to avoid a self-hash cycle; its final packaged hash is in vendor/manifest.json and components.lock.json."
   }
 }

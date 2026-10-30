@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { dirname,join,resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readFileSync,mkdirSync,writeFileSync,existsSync,lstatSync } from 'node:fs';
+import { readFileSync,writeFileSync,existsSync,lstatSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { inheritedEnv } from '../src/mcp/client.js';
 import { loadConfig,saveConfig } from '../src/config.js';
@@ -66,6 +66,7 @@ try {
   const r=spawnSync(process.execPath,[join(root,'vendor/hub/remote/fra-device.cjs'),cmd,'--state',state,'--fra-core',join(root,'vendor/fra-core'),...args],{stdio:'inherit'});process.exitCode=r.status??1;
  } else if(cmd==='select-hub') {
   const state=join(dataDir(),'extended/devices/default');
+  createPrivateDataPath(state);assertPrivateDataPath(state);
   const fraCore=join(root,'vendor/fra-core');
   let route;
   if(args.length===1&&!args[0].startsWith('--')) {
@@ -81,7 +82,7 @@ try {
   if(!Array.isArray(route.transports)||route.transports.length!==1||route.transports[0]!=='fra'||!route.fra||typeof route.fra!=='object') throw new Error('Select exactly one FRA transport with an explicit paired gateway profile');
   route.fra={...route.fra,state,fraCore};
   route.fleetRoot=join(root,'vendor/fleet');route.fleetStateRoot=join(dataDir(),FLEET_PIN.runtime.stateDirectory);
-  const target=join(configDir(),'extended/hub.json');assertPrivateDataPath(dirname(target));if(existsSync(target)&&(!lstatSync(target).isFile()||lstatSync(target).isSymbolicLink()))throw new Error('Hub profile path must be a regular file without links');mkdirSync(dirname(target),{recursive:true,mode:0o700});writeFileSync(target,JSON.stringify(route,null,2)+'\n',{mode:0o600});
+  const target=join(configDir(),'extended/hub.json');createPrivateDataPath(dirname(target));assertPrivateDataPath(dirname(target));if(existsSync(target)&&(!lstatSync(target).isFile()||lstatSync(target).isSymbolicLink()))throw new Error('Hub profile path must be a regular file without links');writeFileSync(target,JSON.stringify(route,null,2)+'\n',{mode:0o600});
   const cfg=loadConfig(); if(!cfg.extended?.localFleet) cfg.extended={localFleet:cfg.fleet};
   cfg.fleet={enabled:true,command:process.execPath,args:[join(root,'bin/hub-client.cjs'),'--config',target],env:{}};
   saveConfig(cfg);console.log('Selected one Hub Fleet upstream; ToolsEngine and Knowledge remain local.');

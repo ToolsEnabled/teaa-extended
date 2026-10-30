@@ -112,6 +112,8 @@ async function startGateway({ packageRoot, dataDirectory, state, fleetStateRoot,
   startTime = processStartTime, alive = sameProcessAlive, readJson = readPrivateJsonFile,
   readText = readPrivateTextFile, timeoutMs = 15_000 } = {}) {
   if (typeof discoverRelayPair !== 'function') throw new TypeError('discoverRelayPair is required');
+  createPrivateDataPath(state);
+  assertPrivateDataPath(state);
   if (!relayPairId) relayPairId = await discoverRelayPair({ accountUrl, state, fraCore: path.join(packageRoot, 'vendor', 'fra-core'), allowInsecureLoopback });
   const prepared = buildGatewayRuntime({ packageRoot, state, fleetStateRoot, treeKey, runtime,
     accountUrl, relayPairId, machine, dataDirectory, allowInsecureLoopback });

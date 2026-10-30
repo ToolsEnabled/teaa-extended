@@ -121,7 +121,9 @@ def main():
       'PROVENANCE.md':'Document upstream attribution, packaged scope and TEAA Extended runtime derivation.',
       'bin/gateway-compatibility.cjs':'Use SystemRoot-qualified PowerShell for native Windows compatibility checks while retaining Linux behavior.',
       'bin/windows-package-identity.ps1':'Add the Windows package identity verifier used to validate the exact installed Hub component tree and ACLs.',
-      'remote/remote-lead-mcp.cjs':'Add native Windows Fleet V5 process-ancestry observation; query the selected gateway compatibility claim before FRA open, include it in the stream request, and export main for the bundled client wrapper.',
+      'remote/remote-lead-mcp.cjs':'Add native Windows Fleet V5 process-ancestry observation and FRA compatibility claims; race Hub requests against relay-session closure and a 25-second deadline (above the 20-second stream poll), close stale relay sessions, and let the persistent MCP supervisor report the in-flight reset and reattach.',
+      'remote/fra-device.cjs':'Create missing Windows FRA device-state directories through the vendored windows-state-security helper so elevated Hub-first and open-first flows give the selected tree to the current account; retain fail-closed ownership and path checks.',
+      'remote/fra-stream.cjs':'Propagate terminal FRA disconnections out of the current byte-stream pump so the persistent MCP supervisor can fail in-flight calls promptly and reattach with bounded backoff.',
       'bin/fra-gateway.cjs':'Probe the account service at /v1/health used by the hosted and self-hosted releases, with /healthz fallback for older fronts.',
      }
      overlay.append({'path':rel,'upstreamSha256':prior.get('sha256') if prior else None,'packagedSha256':row['sha256'],'reason':reasons.get(rel,'Added as a TEAA Extended Hub runtime file; exact path and package hash are listed in packagedInventory and vendor/manifest.json.')})

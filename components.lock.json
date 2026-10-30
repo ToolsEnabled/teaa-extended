@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "product": "@toolsenabled/teaa",
-  "version": "0.5.0-alpha.6",
-  "qualification": "TEAA Extended 0.5.0-alpha.6: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
+  "version": "0.5.0-alpha.7",
+  "qualification": "TEAA Extended 0.5.0-alpha.7: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
   "fleet": {
     "version": "5.0.0-alpha.13",
     "commit": "2c37a8a82ec35b014e957e3fe2be827658868658",
@@ -63,7 +63,7 @@
   },
   "edition": "TEAA Extended",
   "derivation": {
-    "teaaSourceCommit": "4f06d4def577bad88e155147537253443c8930f9",
+    "teaaSourceCommit": "188465afac8600bff8503031fb874a22a2b37af1",
     "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
     "fleetTarget": "linux-x64",
     "fleetArchiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb"
@@ -75,6 +75,7 @@
     "branch": "teaa-base-alpha5-fleet-2c37a8a",
     "basePackages": {
       "linux-x64": {
+        "path": "inputs/base/teaa-0.5.0-alpha.5-linux-x64.tar.gz",
         "sha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d",
         "releaseManifestSha256": "b8b3711f05aa049d544d9f2f659fa2fa362684eeebfa6a8f07f7cbcf6efd6e83",
         "componentsLockSha256": "f4bad0a1d825592b8d16b8b58f0ee198e50a9f69037b98fd2a52ca8ced6539cc",
@@ -82,6 +83,7 @@
         "abIdentical": true
       },
       "windows-x64": {
+        "path": "inputs/base/teaa-0.5.0-alpha.5-windows-x64.zip",
         "sha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831",
         "releaseManifestSha256": "4600ebe21b2c2b4c40a4deb1c626e7c3c4c39ee5fbbbfac2dea97eb44fc1f382",
         "componentsLockSha256": "314a05e97ecd93a2b8974315928787bfa86b28d7b7b23d49a55e0226a9bbfb7a",
@@ -122,10 +124,12 @@
     "qualification": "Accepted clean BASE alpha5 code/integrity input from root handoff; exact A/B archives and component/source manifests verified. BASE combined/native CLI qualification is independent and not claimed by this Extended pin.",
     "reproducibilityReceipts": {
       "linux-x64": {
+        "path": "inputs/base/reproducibility.json",
         "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
         "pairSha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d"
       },
       "windows-x64": {
+        "path": "inputs/base/reproducibility.json",
         "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
         "pairSha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831"
       }
@@ -159,7 +163,7 @@
     "sourceCommit": "59ada51cfab0a2aaa066d277b5ed0bd81ba122b4",
     "sourceScope": "Selected Hub gateway, bridge and FRA client runtime files only; deployment configs, logs, keys, reports and backups excluded.",
     "fileCount": 11,
-    "packagedFilesSha256": "a25b0063ecb136a5f9885547504bf3e1bc0424f48a6a1c9e85200c398e2bf0ff"
+    "packagedFilesSha256": "c3b76f3cb77a6e20c122086ccba6dffd12cde1705c1f9507ebc4783293b34628"
   },
   "teaaEdition": "extended"
 }

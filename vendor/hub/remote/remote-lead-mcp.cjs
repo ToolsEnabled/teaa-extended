@@ -214,15 +214,36 @@ async function main(argv) {
   process.exit(code ?? 0);
 }
 
-/* A hub restart can end every attached session, and some agent CLIs do not
- * restart an MCP server that exits. Keep the agent's
- * stdio stays open across hub sessions. Calls that were in flight when a session
+/* A Hub restart ends every attached session, and some agent CLIs do not
+ * restart an MCP server that exits. Keep the agent's stdio open across Hub
+ * sessions. Calls that were in flight when a session
  * ended get an error (they may or may not have run); calls made while the hub is
  * away wait. On re-attach the agent's own initialize handshake is replayed, and
  * its answer is kept from the agent, which has already been initialized once.
  * connect() resolves to { up, down, closed, leave } or throws; it is retried
  * with backoff for as long as the agent keeps its input open. */
 const RESET_ERROR = -32001;
+const FRA_REQUEST_TIMEOUT_MS = 25_000; // FRA stream output polls last 20 seconds.
+function fraDisconnected(message) {
+  return Object.assign(new Error(message), { code: 'FRA_DISCONNECTED' });
+}
+function boundedRelayRequest(handle, method, pathname, options, timeoutMs = FRA_REQUEST_TIMEOUT_MS) {
+  let timer;
+  const closed = Promise.resolve(handle.closed).then(
+    () => { throw fraDisconnected('The FRA relay connection closed while a Hub request was in flight; reconnect and retry after checking its state.'); },
+    () => { throw fraDisconnected('The FRA relay connection closed while a Hub request was in flight; reconnect and retry after checking its state.'); });
+  const deadline = new Promise((resolve, reject) => {
+    timer = setTimeout(() => {
+      reject(fraDisconnected('The Hub did not answer over FRA before the bounded request deadline; this call may or may not have completed. Check its state, then retry after reconnect.'));
+      try { handle.close?.(); } catch { /* the relay is already gone */ }
+    }, timeoutMs);
+  });
+  return Promise.race([
+    Promise.resolve().then(() => handle.request(method, pathname, options)),
+    closed,
+    deadline,
+  ]).finally(() => clearTimeout(timer));
+}
 function keepSession({ connect, stdin, stdout, log = note, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)),
   maxWaitMs = 15_000, signals = ['SIGTERM', 'SIGINT', 'SIGHUP'] }) {
   return new Promise(resolveSession => {
@@ -322,7 +343,7 @@ function keepSession({ connect, stdin, stdout, log = note, sleep = ms => new Pro
       if (inputEnded) { finish(code); return; }
       for (const id of inFlight) {
         stdout.write(`${JSON.stringify({ jsonrpc: '2.0', id, error: { code: RESET_ERROR,
-          message: 'The Fleet hub session was reset (hub restart or lost relay), so this call may or may not have run. Check the state and retry.' } })}\n`);
+          message: 'The Fleet Hub session was reset after a Hub restart or relay interruption. This call may or may not have completed; check its state, then retry after the Hub reconnects.' } })}\n`);
       }
       inFlight.clear();
       log(`[remote-lead-mcp] hub session ended (exit ${code}); re-attaching.\n`);
@@ -335,10 +356,13 @@ function keepSession({ connect, stdin, stdout, log = note, sleep = ms => new Pro
   });
 }
 
-/* The stream uses this machine's dedicated key. `-i` alone does not
- * guarantee that: a Host block or a key in the agent may be offered first.
- * Use `-F none` and `IdentityAgent=none` so user SSH config and agent state
- * cannot take precedence. This requires OpenSSH 8.0 (2019) or newer. */
+/* The stream must carry THIS machine's dedicated key, the only one the hub
+ * answers with the bridge. `-i` alone does not guarantee that: a Host block in
+ * the user's ssh_config, or a key in their agent, is offered first and the hub
+ * then gives that key its ordinary shell, which answers the attach request with
+ * "attach: command not found". A user SSH host rule or agent key can be
+ * offered before this dedicated key. Leave both out: -F none needs OpenSSH
+ * 8.0 (2019) or newer. */
 function sshArgs(config, { actor, level, tag }) {
   return ['-F', 'none', '-T', '-i', config.keyFile,
     '-o', 'IdentityAgent=none', '-o', 'IdentitiesOnly=yes', '-o', 'BatchMode=yes',
@@ -398,8 +422,8 @@ function fraRelay(fra) {
     })().finally(() => { reconnecting = null; });
     return reconnecting;
   };
-  // If the relay is unreachable or rejects the handshake, the call fails so
-  // the caller can fall back to SSH or retry.
+  // Never wait on the relay without limit: when it is unreachable, the call
+  // fails so the caller can fall back to SSH or retry, and says why.
   const call = async (method, pathname, body) => {
     if (!handle) {
       if (reconnecting) await Promise.race([reconnecting, new Promise(resolve => setTimeout(resolve, fra.callWaitMs ?? 20_000).unref?.())]);
@@ -411,7 +435,9 @@ function fraRelay(fra) {
       }
       if (!handle) throw Object.assign(new Error('no relay connection'), { code: 'FRA_DISCONNECTED' });
     }
-    return handle.request(method, pathname, body === undefined ? {} : { body, headers: { 'content-type': 'application/octet-stream' } });
+    const current = handle;
+    return boundedRelayRequest(current, method, pathname,
+      body === undefined ? {} : { body, headers: { 'content-type': 'application/octet-stream' } });
   };
   const stop = () => { stopping = true; clearTimeout(renewTimer); try { handle?.close(); } catch { /* gone */ } };
   return { call, stop };
@@ -467,4 +493,4 @@ async function fraConnector(relay, { actor, level, tag }) {
 
 if (require.main === module) main(process.argv.slice(2)).catch(error => { note(`[remote-lead-mcp] ${error.message}\n`); process.exit(2); });
 module.exports = { request, readLead, fleetWorker, sshArgs, keepSession, RESET_ERROR, fraRelay, fraConnector, fraCompatibility, main,
-  sshConnector, validateRemoteConfig };
+  sshConnector, validateRemoteConfig, boundedRelayRequest };

@@ -309,7 +309,7 @@ async function pumpStream({ call, request, stdin, stdout, stderr, retryMs = 1000
         if (response.status !== 200 && response.status !== 429) throw refusal('STREAM_REFUSED', `${label} answered ${response.status}`);
         if (response.status === 200) return response;
       } catch (error) {
-        if (['STREAM_LOST', 'STREAM_REFUSED', 'STREAM_RESPONSE_INVALID', 'STREAM_CANCELLED'].includes(error.code)) throw error;
+        if (['STREAM_LOST', 'STREAM_REFUSED', 'STREAM_RESPONSE_INVALID', 'STREAM_CANCELLED', 'FRA_DISCONNECTED'].includes(error.code)) throw error;
         if (Date.now() - started >= giveUpMs) throw refusal('STREAM_UNREACHABLE', `${label}: ${error.code || error.message}`);
       }
       if (Date.now() - started >= giveUpMs) throw refusal('STREAM_UNREACHABLE', `${label}: retry limit reached`);
