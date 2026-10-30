@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "product": "@toolsenabled/teaa",
-  "version": "0.5.0-alpha.9",
-  "qualification": "TEAA Extended 0.5.0-alpha.9: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
+  "version": "0.5.0-alpha.10",
+  "qualification": "TEAA Extended 0.5.0-alpha.10: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
   "fleet": {
     "version": "5.0.0-alpha.13",
     "commit": "2c37a8a82ec35b014e957e3fe2be827658868658",
@@ -63,31 +63,31 @@
   },
   "edition": "TEAA Extended",
   "derivation": {
-    "teaaSourceCommit": "82683c67701d589187ab8b54ff5a6d6ba0b31d37",
+    "teaaSourceCommit": "f5b0c377babfdc6ee9917ba4a157a1f499654eb8",
     "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
     "fleetTarget": "linux-x64",
     "fleetArchiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb"
   },
-  "baseSourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+  "baseSourceCommit": "03b99edfe257a1f45a472249851b093cfe2b55bf",
   "basePin": {
     "schema": "teaa-base-pin/1",
-    "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
-    "branch": "teaa-base-alpha5-fleet-2c37a8a",
+    "sourceCommit": "03b99edfe257a1f45a472249851b093cfe2b55bf",
+    "branch": "launch-base-alpha6",
     "basePackages": {
       "linux-x64": {
-        "path": "inputs/base/teaa-0.5.0-alpha.5-linux-x64.tar.gz",
-        "sha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d",
-        "releaseManifestSha256": "b8b3711f05aa049d544d9f2f659fa2fa362684eeebfa6a8f07f7cbcf6efd6e83",
-        "componentsLockSha256": "f4bad0a1d825592b8d16b8b58f0ee198e50a9f69037b98fd2a52ca8ced6539cc",
-        "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+        "path": "inputs/base/teaa-0.5.0-alpha.6-linux-x64.tar.gz",
+        "sha256": "72b063decd0d815f01504fcc2459927cdc8f6c49af752682532f4d73c5bee76c",
+        "releaseManifestSha256": "b62df7ab59c8ec6aa523209ff379a76a6dda9170382c711ba8b4b4cd6ec3fd34",
+        "componentsLockSha256": "7e104bde5a27b024e7c4f806f0b3d7c64dc94069b6bfe9a7b4811c57c9b76b4a",
+        "sourceCommit": "03b99edfe257a1f45a472249851b093cfe2b55bf",
         "abIdentical": true
       },
       "windows-x64": {
-        "path": "inputs/base/teaa-0.5.0-alpha.5-windows-x64.zip",
-        "sha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831",
-        "releaseManifestSha256": "4600ebe21b2c2b4c40a4deb1c626e7c3c4c39ee5fbbbfac2dea97eb44fc1f382",
-        "componentsLockSha256": "314a05e97ecd93a2b8974315928787bfa86b28d7b7b23d49a55e0226a9bbfb7a",
-        "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+        "path": "inputs/base/teaa-0.5.0-alpha.6-windows-x64.zip",
+        "sha256": "c543079ca80c5ca7c9a369d38e3b3ac9faf99833769f2eb698085c4268ac9233",
+        "releaseManifestSha256": "993e7808c53d6a77d66f5535beb28a6946f73e552de3179ac07744439eee0ae4",
+        "componentsLockSha256": "9a621f2dd41cbd0b16f19eab8c27399655cd4cd444deabdd924950abc57b1ce8",
+        "sourceCommit": "03b99edfe257a1f45a472249851b093cfe2b55bf",
         "abIdentical": true
       }
     },
@@ -121,21 +121,21 @@
       "packagedFilesSha256": "aa3809c226bbef3a43554076b0e07af5b7f65369b7e90c5ca42f6bdb3943be1e",
       "compatibility": "Accepted Knowledge 1.2.0 reliability core with TEAA Windows port retained: conditional msvcrt/fcntl locks, bounded native process ancestry from trusted SystemRoot PowerShell, fail-closed identity checks, os.devnull Git paths and explicit Windows CRLF normalization under isolated Git config"
     },
-    "qualification": "Accepted clean BASE alpha5 code/integrity input from root handoff; exact A/B archives and component/source manifests verified. BASE combined/native CLI qualification is independent and not claimed by this Extended pin.",
+    "qualification": "TEAA BASE 0.5.0-alpha.6 (alpha.5 plus the configured Knowledge Python fix); exact A/B archives, component/source manifests and the unchanged Fleet 2c37a8a identity verified. BASE native qualification is recorded separately and not claimed by this Extended pin.",
     "reproducibilityReceipts": {
       "linux-x64": {
-        "path": "inputs/base/reproducibility.json",
-        "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
-        "pairSha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d"
+        "path": "inputs/base/reproducibility-0.5.0-alpha.6-03b99ed.json",
+        "sha256": "b7cec6ece9b6dad4218629cf427acacf5e83b464c97e947a4a7d1a373a63c04f",
+        "pairSha256": "72b063decd0d815f01504fcc2459927cdc8f6c49af752682532f4d73c5bee76c"
       },
       "windows-x64": {
-        "path": "inputs/base/reproducibility.json",
-        "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
-        "pairSha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831"
+        "path": "inputs/base/reproducibility-0.5.0-alpha.6-03b99ed.json",
+        "sha256": "b7cec6ece9b6dad4218629cf427acacf5e83b464c97e947a4a7d1a373a63c04f",
+        "pairSha256": "c543079ca80c5ca7c9a369d38e3b3ac9faf99833769f2eb698085c4268ac9233"
       }
     },
     "derivation": {
-      "teaaSourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+      "teaaSourceCommit": "03b99edfe257a1f45a472249851b093cfe2b55bf",
       "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
       "fleetTargets": {
         "linux-x64": {

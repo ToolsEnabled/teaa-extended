@@ -1,3 +1,9 @@
+# TEAA Extended 0.5.0-alpha.10 — configured Knowledge Python
+
+- Setup uses a configured `knowledge.command` Python that is not on PATH: with `knowledge.args` naming the bundled `knowledge.py`, setup failed with `Bundled runtime setup failed: Python 3.11 or newer was not found on PATH`. The configured interpreter is now version-checked and kept, the sample Knowledge repository and `knowledge-config.json` are still created, and PATH is searched only when no command is configured. `teaa setup --knowledge` uses the configured interpreter too.
+- A failed `teaa open` (for example an unreachable account origin) prints the FRA error and exits nonzero, as alpha.9 already did; a regression test now covers unreachable, refused and invalid account origins.
+- Pin TEAA BASE 0.5.0-alpha.6 (BASE alpha.5 plus the same fix); keep Fleet 2c37a8a with the same component identity, so alpha.9 to alpha.10 in-place upgrades rebind Fleet state as before.
+
 # TEAA Extended 0.5.0-alpha.9 — in-place Fleet runtime upgrade
 
 - Rebind a verified earlier TEAA-managed Fleet runtime in the same prefix when the Fleet component identity matches, preserving existing Fleet state and FRA enrollment.

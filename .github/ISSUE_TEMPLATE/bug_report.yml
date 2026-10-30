@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report this. **Do not paste passwords, tokens, API keys, cookies or private keys anywhere in this form.** Security problems go to security@toolsenabled.ai or the repository's Security tab, not a public issue.
+        Thanks for taking the time to report this. **Do not paste passwords, tokens, API keys, cookies or private keys anywhere in this form.** Security problems go privately through the repository's Security tab or the [security policy](https://github.com/ToolsEnabled/.github/blob/main/SECURITY.md), not a public issue.
   - type: dropdown
     id: product
     attributes:
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Version
       description: The version that `teaa doctor` shows, or the name of the release archive you downloaded.
-      placeholder: 0.5.0-alpha.9
+      placeholder: 0.5.0-alpha.10
   - type: dropdown
     id: os
     attributes:

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { loadConfig, saveConfig, detectFleet, detectEngine, detectKnowledge, fleetServerEntry, fleetLaunch, fleetAuditLaunch, engineLaunch, knowledgeLaunch, ensureFolder, mcpFolder, fleetActor, serverEntry, validateActor, isBundledFleet } from './config.js';
 import { attachLocalKnowledgeOrigin, ensureCustomerKnowledge } from './bundle.js';
 import { McpClient } from './mcp/client.js';
-import { osLabel, isWindows, which, requirePython311, expandHome, resolveCommand } from './platform.js';
+import { osLabel, isWindows, which, selectPython311, expandHome, resolveCommand } from './platform.js';
 import { VERSION } from './version.js';
 import fleetPins from './fleet-pin.cjs';
 const FLEET_PIN=fleetPins.fleetPin();
@@ -45,7 +45,7 @@ export async function runSetup({ fleet, engine, knowledge, folder, actor, noBrow
     const includeKnowledge = cfg.knowledge.enabled && !knowledge && (!cfg.knowledge.command || cfg.knowledge.args.includes(knowledgeHost));
     if (includeFleet || includeEngine || includeKnowledge) {
       try {
-        const bundled = await prepareBundledRuntime({ folder: mcpFolder(cfg), workers, actor: cfg.mcp.actor ?? undefined, includeFleet, includeEngine, includeKnowledge, browser: cfg.engine.browser });
+        const bundled = await prepareBundledRuntime({ folder: mcpFolder(cfg), workers, actor: cfg.mcp.actor ?? undefined, includeFleet, includeEngine, includeKnowledge, knowledgePython: cfg.knowledge.command, browser: cfg.engine.browser });
         if (bundled?.fleet && includeFleet) {
           cfg.fleet = { ...cfg.fleet, ...bundled.fleet };
           log(info(`Fleet ${bundled.versions.fleet} state ${bundled.fleetStateRoot} (workers ${bundled.fleetWorkers ? 'on' : 'off'})`));
@@ -73,7 +73,7 @@ export async function runSetup({ fleet, engine, knowledge, folder, actor, noBrow
         const p = resolve(expandHome(supplied));
         if (!existsSync(p)) throw new Error(`${label} not found at ${p}`);
         if (key === 'knowledge') {
-          const python = requirePython311();
+          const python = selectPython311(cfg.knowledge.command);
           const ensured = ensureCustomerKnowledge();
           cfg.knowledge = { ...cfg.knowledge, enabled: true, command: python, args: [p, '--config', ensured.configPath, '--owner-launch'], env: cfg.knowledge.env || {} };
           if (ensured.repo) cfg.knowledge.repo = ensured.repo;

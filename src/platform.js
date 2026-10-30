@@ -75,19 +75,41 @@ export function python311(env = process.env) {
       const key = isWindows ? candidate.toLowerCase() : candidate;
       if (seen.has(key)) continue;
       seen.add(key);
-      const result = spawnSync(candidate, ['-c', 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)'], {
-        encoding: 'utf8', windowsHide: true, timeout: 15_000, shell: false,
-      });
-      if (!result.error && result.status === 0) return candidate;
+      if (probePython311(candidate)) return candidate;
     }
   }
   return null;
+}
+
+function probePython311(candidate) {
+  const result = spawnSync(candidate, ['-c', 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)'], {
+    encoding: 'utf8', windowsHide: true, timeout: 15_000, shell: false,
+  });
+  return !result.error && result.status === 0;
+}
+
+// Check one given interpreter (an absolute path, or a command name resolved like
+// TEAA launches it) with the same 3.11+ probe. The Store alias is never executed.
+export function isPython311(command, env = process.env) {
+  const candidate = which(command, env);
+  if (!candidate) return false;
+  if (isWindows && /(?:^|[\\/])WindowsApps(?:[\\/]|$)/i.test(candidate)) return false;
+  return probePython311(candidate);
 }
 
 export function requirePython311(env = process.env) {
   const python = python311(env);
   if (!python) throw new Error('Python 3.11 or newer was not found on PATH. Knowledge MCP needs Python 3.11 or newer.');
   return python;
+}
+
+// A configured Knowledge interpreter (knowledge.command) is authoritative: it is
+// validated and kept as configured, never replaced by a PATH search. PATH is
+// searched only when no command is configured.
+export function selectPython311(configured, env = process.env) {
+  if (configured === undefined || configured === null || configured === '') return requirePython311(env);
+  if (isPython311(configured, env)) return configured;
+  throw new Error(`The configured Knowledge Python ${configured} is not a usable Python 3.11 or newer. Set knowledge.command in the TEAA settings to a Python 3.11 or newer executable, or install Python 3.11 or newer.`);
 }
 
 function pathExts(env) {

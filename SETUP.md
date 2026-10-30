@@ -1,8 +1,8 @@
-See README.md for the TEAA Extended 0.5.0-alpha.9 candidate and qualification instructions.
+See README.md for the TEAA Extended 0.5.0-alpha.10 candidate and qualification instructions.
 
 # Setup
 
-TEAA Extended 0.5.0-alpha.9 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
+TEAA Extended 0.5.0-alpha.10 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
 
 ## Upgrade in the same prefix
 
@@ -40,6 +40,10 @@ teaa mcp --actor local
 Provider CLIs are used only when a person later starts a Fleet worker. Setup does not spawn one.
 
 On Windows, run the archive's `install.cmd`; it calls the Node installer directly and does not depend on PowerShell script execution policy. Optional flags are `install.cmd --prefix "C:\Tools\TEAA"` and `install.cmd --prefix "C:\Tools\TEAA" --uninstall`. The installer supports `--prefix`, `--uninstall`, and `--add-to-path`; no user or machine PATH change occurs unless the last option is explicitly selected.
+
+## Python runtime for Knowledge
+
+Knowledge needs Python 3.11 or newer. When `knowledge.command` in the TEAA settings file is empty, setup searches `PATH` for it. To use a Python that is not on `PATH` (for example a portable or embeddable Python), set `knowledge.command` to that interpreter's full path and `knowledge.args` to the bundled script `<prefix>/app/<version>/vendor/knowledge/knowledge.py` (on Windows `<prefix>\app\<version>\vendor\knowledge\knowledge.py`), then run `teaa setup`. `teaa config` prints the settings file path. Setup checks that the configured interpreter is Python 3.11 or newer, keeps it, and still creates the sample Knowledge repository and `knowledge-config.json`. If the configured interpreter is missing or older, setup stops and names it; it never substitutes another Python from `PATH`. An in-place upgrade moves `knowledge.args` to the new app's script and keeps `knowledge.command`.
 
 ## What the first run creates
 
