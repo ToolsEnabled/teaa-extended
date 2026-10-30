@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "ToolsEnabled/fra-security-20261026",
+  "sourceCommit": "59ada51cfab0a2aaa066d277b5ed0bd81ba122b4",
+  "sourcePath": "fra-core",
+  "sourceVersion": "0.0.0-extracted",
+  "scope": "Current runtime library files required by the packaged FRA client; tests, reports, deployments, credentials and unrelated desktop content excluded.",
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 1072,
+      "sha256": "e36d99bd9074ba3fb9261e75f04c99db8fd64736de5faf49bed7b15e0dea9602",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-account-response.js",
+      "size": 11742,
+      "sha256": "13a251e0774af5f884e97b0a10ea3c7eeac20235e2c90e385859a6fa85a51715",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-admin-enrollment.js",
+      "size": 15495,
+      "sha256": "1f6ae8cdce1620b93e70070e47d10cf506bbb9de1eda9d394ade6f02c7b85ad9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-bridge-response.js",
+      "size": 5347,
+      "sha256": "5e56128a6c724d654db27c1e59b7e5ebf56bc40d4414dd55636fe8aaff290f0c",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-browser-authority.js",
+      "size": 12766,
+      "sha256": "c5b0589f568fab3e22ed3acaf29cb3c3cd99293008fb6af40036eaceef677a91",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-composite-bridge.js",
+      "size": 29055,
+      "sha256": "47d62cb333dd8d3600cc654869b447f69ed819acacf918e6d3dcf3b23d5a3518",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-desktop-controller.js",
+      "size": 9378,
+      "sha256": "08a5e7498aa68452916051e8477f548c04494c3a51b3420e1b4e8a6149c73447",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-device-claim.js",
+      "size": 19231,
+      "sha256": "5305131ee1bc7b983bd9a219a385296266714000eaa3ef6ff09b7865a2369f9d",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-device-identity.js",
+      "size": 5377,
+      "sha256": "6ca2a66353336151426753f8ea5a5c252789f17db7086e31ae6e1d326857da84",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-direct-signalling.js",
+      "size": 9241,
+      "sha256": "60f752a785ca1a7aa7e47d11a6d62c7a3cfc4756f26f255c158cdcc688f47a16",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-direct-transport.js",
+      "size": 15521,
+      "sha256": "49cc02b493fd0f3d58410473628c462711f9060c587ae3fa06f8aafdf9ce356a",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-e2e-session.js",
+      "size": 28261,
+      "sha256": "c1ba6280a541ae74eec35d4587c6e745ed4921d75bdecc3668b03f0799c44c58",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-e2e-session.web.mjs",
+      "size": 28199,
+      "sha256": "019510a1ed3d6621278b5ad97744759850229ce050f6a4b6007a1e65420ec2d9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-file-vault.js",
+      "size": 17515,
+      "sha256": "62d79037b8c43773e726dc069298bb61018f49d426f2d99af5e01727e92ddffb",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-local-bridge.js",
+      "size": 10754,
+      "sha256": "fd687b5246ecec7b44d6b80993880d9d3ba58ea03900f4fdb6c98084e1e48507",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-peer-introduction.js",
+      "size": 14727,
+      "sha256": "80ee78c6bb00608ec3b3e20086d437aa7d39bf1853394a3cc56ccd7abe46f0c9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-client.js",
+      "size": 27961,
+      "sha256": "64797cb07b4f5bcf13926169e61306cbaaf0c99f9bcd7a6252012ba996aabc59",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-close.js",
+      "size": 2356,
+      "sha256": "c03f1a6c3aeadfc53649d2506708d7af1a52c5f17cdb733504cb560d1e121af8",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-shell.js",
+      "size": 94965,
+      "sha256": "bb506495e31cb43394b4ea9d41bf1102eace213e4faa40ea00006f48fdcd8bd9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-strict-json.js",
+      "size": 9076,
+      "sha256": "016d0943f652ee59ed6dc1eda510f66cdc38598898a648687d5e39b1c7c13b41",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-strict-json.web.mjs",
+      "size": 9132,
+      "sha256": "9e33cf19d64df91c9bb3571ef0cf8bb44eddf134e891899c0b4670dddf53a251",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-web-client.mjs",
+      "size": 72608,
+      "sha256": "f2eebfe628fb862151835bf78502b94b2edc34c17989d811801a87a6f18f85e6",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-wire-shapes.js",
+      "size": 2195,
+      "sha256": "41bd46f4537952eef466027ce32a7226da2979e4319035fe847bf4d2ee29f378",
+      "mode": 420
+    }
+  ],
+  "immutableUpstreamFiles": [
+    {
+      "path": "LICENSE",
+      "size": 1072,
+      "sha256": "e36d99bd9074ba3fb9261e75f04c99db8fd64736de5faf49bed7b15e0dea9602",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-account-response.js",
+      "size": 11742,
+      "sha256": "13a251e0774af5f884e97b0a10ea3c7eeac20235e2c90e385859a6fa85a51715",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-admin-enrollment.js",
+      "size": 15495,
+      "sha256": "1f6ae8cdce1620b93e70070e47d10cf506bbb9de1eda9d394ade6f02c7b85ad9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-bridge-response.js",
+      "size": 5347,
+      "sha256": "5e56128a6c724d654db27c1e59b7e5ebf56bc40d4414dd55636fe8aaff290f0c",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-browser-authority.js",
+      "size": 12766,
+      "sha256": "c5b0589f568fab3e22ed3acaf29cb3c3cd99293008fb6af40036eaceef677a91",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-composite-bridge.js",
+      "size": 29055,
+      "sha256": "47d62cb333dd8d3600cc654869b447f69ed819acacf918e6d3dcf3b23d5a3518",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-desktop-controller.js",
+      "size": 9378,
+      "sha256": "08a5e7498aa68452916051e8477f548c04494c3a51b3420e1b4e8a6149c73447",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-device-claim.js",
+      "size": 19231,
+      "sha256": "5305131ee1bc7b983bd9a219a385296266714000eaa3ef6ff09b7865a2369f9d",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-device-identity.js",
+      "size": 5377,
+      "sha256": "6ca2a66353336151426753f8ea5a5c252789f17db7086e31ae6e1d326857da84",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-direct-signalling.js",
+      "size": 9241,
+      "sha256": "60f752a785ca1a7aa7e47d11a6d62c7a3cfc4756f26f255c158cdcc688f47a16",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-direct-transport.js",
+      "size": 15521,
+      "sha256": "49cc02b493fd0f3d58410473628c462711f9060c587ae3fa06f8aafdf9ce356a",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-e2e-session.js",
+      "size": 28261,
+      "sha256": "c1ba6280a541ae74eec35d4587c6e745ed4921d75bdecc3668b03f0799c44c58",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-e2e-session.web.mjs",
+      "size": 28199,
+      "sha256": "019510a1ed3d6621278b5ad97744759850229ce050f6a4b6007a1e65420ec2d9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-file-vault.js",
+      "size": 17515,
+      "sha256": "62d79037b8c43773e726dc069298bb61018f49d426f2d99af5e01727e92ddffb",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-local-bridge.js",
+      "size": 10754,
+      "sha256": "fd687b5246ecec7b44d6b80993880d9d3ba58ea03900f4fdb6c98084e1e48507",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-peer-introduction.js",
+      "size": 14727,
+      "sha256": "80ee78c6bb00608ec3b3e20086d437aa7d39bf1853394a3cc56ccd7abe46f0c9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-client.js",
+      "size": 27961,
+      "sha256": "64797cb07b4f5bcf13926169e61306cbaaf0c99f9bcd7a6252012ba996aabc59",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-close.js",
+      "size": 2356,
+      "sha256": "c03f1a6c3aeadfc53649d2506708d7af1a52c5f17cdb733504cb560d1e121af8",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-relay-shell.js",
+      "size": 94965,
+      "sha256": "bb506495e31cb43394b4ea9d41bf1102eace213e4faa40ea00006f48fdcd8bd9",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-strict-json.js",
+      "size": 9076,
+      "sha256": "016d0943f652ee59ed6dc1eda510f66cdc38598898a648687d5e39b1c7c13b41",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-strict-json.web.mjs",
+      "size": 9132,
+      "sha256": "9e33cf19d64df91c9bb3571ef0cf8bb44eddf134e891899c0b4670dddf53a251",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-web-client.mjs",
+      "size": 72608,
+      "sha256": "f2eebfe628fb862151835bf78502b94b2edc34c17989d811801a87a6f18f85e6",
+      "mode": 420
+    },
+    {
+      "path": "src/lib/online-fra-wire-shapes.js",
+      "size": 2195,
+      "sha256": "41bd46f4537952eef466027ce32a7226da2979e4319035fe847bf4d2ee29f378",
+      "mode": 420
+    }
+  ],
+  "derivedOrAddedFiles": [
+    {
+      "path": "PROVENANCE.md",
+      "upstreamSha256": null,
+      "packagedSha256": "9d644e6ca1cdffea99d0092a23497d933aabb9a1168c60945b26b7ae79148ec9",
+      "reason": "Document FRA source attribution, packaged scope and the TEAA Extended runtime derivation."
+    },
+    {
+      "path": "package.json",
+      "upstreamSha256": null,
+      "packagedSha256": "8005a3491db7d92f36ac66369861589f9c47123d3a7c71e643fc2c06168cd45a",
+      "reason": "Declare the vendored FRA JavaScript modules as CommonJS inside the outer TEAA ESM package so the packaged Hub device adapter can require the canonical modules; upstream FRA module bytes are unchanged."
+    }
+  ],
+  "packagedInventory": {
+    "fileCount": 25,
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 1072,
+        "sha256": "e36d99bd9074ba3fb9261e75f04c99db8fd64736de5faf49bed7b15e0dea9602",
+        "mode": 420
+      },
+      {
+        "path": "PROVENANCE.md",
+        "size": 409,
+        "sha256": "9d644e6ca1cdffea99d0092a23497d933aabb9a1168c60945b26b7ae79148ec9",
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 25,
+        "sha256": "8005a3491db7d92f36ac66369861589f9c47123d3a7c71e643fc2c06168cd45a",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-account-response.js",
+        "size": 11742,
+        "sha256": "13a251e0774af5f884e97b0a10ea3c7eeac20235e2c90e385859a6fa85a51715",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-admin-enrollment.js",
+        "size": 15495,
+        "sha256": "1f6ae8cdce1620b93e70070e47d10cf506bbb9de1eda9d394ade6f02c7b85ad9",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-bridge-response.js",
+        "size": 5347,
+        "sha256": "5e56128a6c724d654db27c1e59b7e5ebf56bc40d4414dd55636fe8aaff290f0c",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-browser-authority.js",
+        "size": 12766,
+        "sha256": "c5b0589f568fab3e22ed3acaf29cb3c3cd99293008fb6af40036eaceef677a91",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-composite-bridge.js",
+        "size": 29055,
+        "sha256": "47d62cb333dd8d3600cc654869b447f69ed819acacf918e6d3dcf3b23d5a3518",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-desktop-controller.js",
+        "size": 9378,
+        "sha256": "08a5e7498aa68452916051e8477f548c04494c3a51b3420e1b4e8a6149c73447",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-device-claim.js",
+        "size": 19231,
+        "sha256": "5305131ee1bc7b983bd9a219a385296266714000eaa3ef6ff09b7865a2369f9d",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-device-identity.js",
+        "size": 5377,
+        "sha256": "6ca2a66353336151426753f8ea5a5c252789f17db7086e31ae6e1d326857da84",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-direct-signalling.js",
+        "size": 9241,
+        "sha256": "60f752a785ca1a7aa7e47d11a6d62c7a3cfc4756f26f255c158cdcc688f47a16",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-direct-transport.js",
+        "size": 15521,
+        "sha256": "49cc02b493fd0f3d58410473628c462711f9060c587ae3fa06f8aafdf9ce356a",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-e2e-session.js",
+        "size": 28261,
+        "sha256": "c1ba6280a541ae74eec35d4587c6e745ed4921d75bdecc3668b03f0799c44c58",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-e2e-session.web.mjs",
+        "size": 28199,
+        "sha256": "019510a1ed3d6621278b5ad97744759850229ce050f6a4b6007a1e65420ec2d9",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-file-vault.js",
+        "size": 17515,
+        "sha256": "62d79037b8c43773e726dc069298bb61018f49d426f2d99af5e01727e92ddffb",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-local-bridge.js",
+        "size": 10754,
+        "sha256": "fd687b5246ecec7b44d6b80993880d9d3ba58ea03900f4fdb6c98084e1e48507",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-peer-introduction.js",
+        "size": 14727,
+        "sha256": "80ee78c6bb00608ec3b3e20086d437aa7d39bf1853394a3cc56ccd7abe46f0c9",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-relay-client.js",
+        "size": 27961,
+        "sha256": "64797cb07b4f5bcf13926169e61306cbaaf0c99f9bcd7a6252012ba996aabc59",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-relay-close.js",
+        "size": 2356,
+        "sha256": "c03f1a6c3aeadfc53649d2506708d7af1a52c5f17cdb733504cb560d1e121af8",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-relay-shell.js",
+        "size": 94965,
+        "sha256": "bb506495e31cb43394b4ea9d41bf1102eace213e4faa40ea00006f48fdcd8bd9",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-strict-json.js",
+        "size": 9076,
+        "sha256": "016d0943f652ee59ed6dc1eda510f66cdc38598898a648687d5e39b1c7c13b41",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-strict-json.web.mjs",
+        "size": 9132,
+        "sha256": "9e33cf19d64df91c9bb3571ef0cf8bb44eddf134e891899c0b4670dddf53a251",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-web-client.mjs",
+        "size": 72608,
+        "sha256": "f2eebfe628fb862151835bf78502b94b2edc34c17989d811801a87a6f18f85e6",
+        "mode": 420
+      },
+      {
+        "path": "src/lib/online-fra-wire-shapes.js",
+        "size": 2195,
+        "sha256": "41bd46f4537952eef466027ce32a7226da2979e4319035fe847bf4d2ee29f378",
+        "mode": 420
+      }
+    ],
+    "filesSha256": "802ed3cf7747bd5bf831bf6203876f76c8e978aa81d3136500a7a848a2bea8e3",
+    "selfReference": "PROVENANCE.json is omitted here to avoid a self-hash cycle; its final packaged hash is in vendor/manifest.json and components.lock.json."
+  }
+}

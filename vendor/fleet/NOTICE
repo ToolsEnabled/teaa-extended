@@ -1,0 +1,16 @@
+ToolsEnabled Fleet
+Copyright (c) 2026 ToolsEnabled, Inc.
+
+This Fleet runtime is licensed under the MIT License in LICENSE. The license
+text controls the permissions and conditions for this distribution.
+
+The Fleet release archives contain the runtime, an installer and
+local documentation. They do not contain a managed service, a desktop app,
+provider CLI packages, credentials or a paid licensing module. Agent CLIs
+are installed separately by the user.
+
+The runtime currently declares no production npm dependencies. See
+THIRD-PARTY-LICENSES.md for the dependency inventory shipped with the archive.
+Fleet uses Node.js platform cryptography, including Ed25519 audit signatures.
+Windows-only code can use the Windows Data Protection API for local secrets;
+that code is not a bundled cryptographic library.

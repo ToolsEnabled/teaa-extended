@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "id": "grok",
+  "name": "Grok",
+  "command": "grok",
+  "worker": {
+    "driver": "acp",
+    "args": [
+      "--no-auto-update",
+      "agent",
+      "--no-leader"
+    ],
+    "modelSelection": "session"
+  },
+  "signIn": {
+    "result": "unknown",
+    "how": "Run `grok login` in this account's own Grok home. Fleet does not read or copy the login."
+  },
+  "register": {
+    "kind": "none",
+    "profile": {
+      "env": "GROK_HOME",
+      "default": ".grok",
+      "file": "config.toml"
+    }
+  },
+  "models": {
+    "flag": "--model",
+    "list": {
+      "format": "grok-models-command",
+      "args": [
+        "models"
+      ]
+    },
+    "effort": true
+  },
+  "permissions": {
+    "aliases": {},
+    "lead": [
+      {
+        "when": {
+          "--permission-mode": "bypassPermissions"
+        },
+        "level": 4
+      },
+      {
+        "when": {
+          "--always-approve": true
+        },
+        "level": 4
+      },
+      {
+        "when": {
+          "--permission-mode": "acceptEdits"
+        },
+        "level": 3
+      },
+      {
+        "when": {
+          "--permission-mode": "plan"
+        },
+        "level": 1
+      }
+    ],
+    "worker": {
+      "1": {
+        "args": [
+          "stdio"
+        ],
+        "allow": "none"
+      },
+      "2": {
+        "args": [
+          "stdio"
+        ],
+        "allow": "none"
+      },
+      "3": {
+        "args": [
+          "stdio"
+        ],
+        "allow": "edits"
+      },
+      "4": {
+        "args": [
+          "--always-approve",
+          "stdio"
+        ],
+        "allow": "all"
+      }
+    },
+    "remove": {
+      "subagents": {
+        "env": {
+          "GROK_SUBAGENTS": "0",
+          "GROK_WORKFLOWS": "0"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "toolNames": "underscore",
+    "listJson": [
+      "mcp",
+      "list",
+      "--json"
+    ]
+  }
+}

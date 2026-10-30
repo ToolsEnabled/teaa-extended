@@ -1,0 +1,22 @@
+TEAA (ToolsEnabled Agent Architecture) MCP by ToolsEnabled
+Copyright (c) 2026 ToolsEnabled, Inc. MIT License.
+
+This 0.5.0-alpha.2 candidate includes runtime bytes from:
+- Fleet V4 4.0.4 (linux-x64), MIT, vendor/fleet, with TEAA integration names
+  (vendor/fleet/release.json records the derivation).
+- ToolsEngine 0.2.0-alpha.4 (linux-x64) and its dependencies, vendor/toolsengine.
+- Knowledge MCP 1.1.0, the single file vendor/knowledge/knowledge.py.
+
+TEAA also includes the private Hub client adapter and FRA client extraction (MIT).
+No Hub/FRA host server or operational state is bundled.
+
+Each component retains its own license and notices. See component LICENSE files,
+THIRD-PARTY-NOTICES.txt where supplied, and dependency licenses in vendor/.
+components.lock.json identifies the staged versions and checksums.
+
+This private delivery contains a Linux x64 archive only. Windows is unqualified.
+
+Node.js, Python, Git, browsers and provider CLIs are not bundled. They remain
+under their own licenses and terms. ToolsEnabled is not affiliated with or
+endorsed by Anthropic, OpenAI or another AI provider. The TEAA website mascot
+is not included in this MCP runtime package.

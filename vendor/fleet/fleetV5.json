@@ -1,0 +1,10 @@
+{
+  "name": "fleetV5",
+  "version": "5.0.0-alpha.13",
+  "distribution": "standalone-mcp",
+  "entry": "bin/fleetV5.js",
+  "base": "fleetV4",
+  "lifecycle": "preserved-v4",
+  "nativeExecution": "src/lib/native-execution/contract.js",
+  "osWideInterception": false
+}

@@ -1,0 +1,24 @@
+{
+  "name": "toolsenabled",
+  "version": "1.10.0-rc.1",
+  "private": true,
+  "license": "MIT",
+  "description": "ToolsEnabled Fleet for local OpenShell agents.",
+  "type": "commonjs",
+  "bin": {
+    "toolsenabled-openshell": "bin/toolsenabled-openshell.js",
+    "toolsenabled": "bin/toolsenabled-openshell.js",
+    "toolsenabled-authority": "bin/toolsenabled-openshell-host.js",
+    "fleetV4": "bin/fleetV4.js",
+    "fleetV5": "bin/fleetV5.js"
+  },
+  "scripts": {
+    "mcp": "node src/mcp-server.js",
+    "test": "node --test tests/fleet-v5-contracts.test.js tests/fleet-v5-tasks.test.js tests/fleet-v5-task-sentences.test.js tests/fleet-v5-task-timeouts.test.js tests/fleet-v5-record-parts.test.js tests/fleet-v5-review.test.js tests/fleet-v5-review-precision.test.js tests/fleet-v5-done-lines.test.js tests/fleet-v5-task-conflicts.test.js tests/fleet-v5-determinacy.test.js tests/fleet-v5-catalog.test.js tests/fleet-v5-compose.test.js tests/fleet-tree-contract.test.js tests/fleet-tree-watch.test.js tests/fleet-public-source-boundary.test.js tests/fleet-audit-view.test.js tests/fleet-ledger-action-view.test.js tests/fleet-mcp-close-state.test.js tests/fleet-memory-view.test.js tests/fleet-settings-view.test.js tests/fleet-status-view.test.js tests/fleet-tasks-view.test.js tests/fleet-text-view.test.js tests/fleet-command-dispatch.test.js tests/fleet-runtime-socket.test.js tests/native-claude-codex-adapter.test.js tests/fleet-v5-byte-task.test.js tests/fleet-v5-byte-task-runtime.test.js",
+    "build:openshell": "bash installer/openshell/build.sh"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dependencies": {}
+}

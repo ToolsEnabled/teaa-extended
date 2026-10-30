@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "ToolsEnabled/fra-security-20261026",
+  "sourceCommit": "59ada51cfab0a2aaa066d277b5ed0bd81ba122b4",
+  "sourcePath": "hub",
+  "scope": "Selected Hub gateway, bridge and FRA client runtime files only; deployment configs, logs, keys, reports and backups excluded.",
+  "portingPatch": {
+    "path": "remote/remote-lead-mcp.cjs",
+    "upstreamSha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
+    "packagedSha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
+    "reason": "Add native Windows process-ancestry observation for Fleet V5 Hub workers; Linux behavior remains on /proc path."
+  },
+  "files": [
+    {
+      "path": "bin/fra-gateway.cjs",
+      "size": 11848,
+      "sha256": "3c3771ea5aa8d3d63939c1f662b1e534b923088c6c0844cd102c036b5d07abb8",
+      "mode": 420
+    },
+    {
+      "path": "bin/gateway-compatibility.cjs",
+      "size": 14305,
+      "sha256": "22c54b45bc7a4cf217926ab30694155493763b7779577b96fe38e8d9242d6589",
+      "mode": 420
+    },
+    {
+      "path": "bin/hub-lead-bridge.cjs",
+      "size": 12578,
+      "sha256": "d343a1553779f50de70df4709d9133bfc912f9474cf6f6aebeeaf14569a69740",
+      "mode": 420
+    },
+    {
+      "path": "bin/level-holder.cjs",
+      "size": 988,
+      "sha256": "17d7217d87a27ce1dd24fc326d1600eb902a209d9d72f45413ffe2a8cb5dde60",
+      "mode": 420
+    },
+    {
+      "path": "remote/compatibility.json",
+      "size": 203,
+      "sha256": "aebe9c12db9ff88851f034231477a1256694c3b70aa5bab8f6444ee68435c2b5",
+      "mode": 420
+    },
+    {
+      "path": "remote/fra-device.cjs",
+      "size": 47107,
+      "sha256": "e1a2398c1fb2f75c8e14fe13167dfc1fae594b3722d5f47801bfb21fdf6b6f6a",
+      "mode": 420
+    },
+    {
+      "path": "remote/fra-stream.cjs",
+      "size": 21216,
+      "sha256": "2df2b6eb2e4d78440373d691d5d03153da32847941a93419cef3e6213c3c92f3",
+      "mode": 420
+    },
+    {
+      "path": "remote/remote-lead-mcp.cjs",
+      "size": 23098,
+      "sha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
+      "mode": 420
+    }
+  ],
+  "immutableUpstreamFiles": [
+    {
+      "path": "bin/fra-gateway.cjs",
+      "size": 11848,
+      "sha256": "3c3771ea5aa8d3d63939c1f662b1e534b923088c6c0844cd102c036b5d07abb8",
+      "mode": 420
+    },
+    {
+      "path": "bin/gateway-compatibility.cjs",
+      "size": 14305,
+      "sha256": "22c54b45bc7a4cf217926ab30694155493763b7779577b96fe38e8d9242d6589",
+      "mode": 420
+    },
+    {
+      "path": "bin/hub-lead-bridge.cjs",
+      "size": 12578,
+      "sha256": "d343a1553779f50de70df4709d9133bfc912f9474cf6f6aebeeaf14569a69740",
+      "mode": 420
+    },
+    {
+      "path": "bin/level-holder.cjs",
+      "size": 988,
+      "sha256": "17d7217d87a27ce1dd24fc326d1600eb902a209d9d72f45413ffe2a8cb5dde60",
+      "mode": 420
+    },
+    {
+      "path": "remote/compatibility.json",
+      "size": 203,
+      "sha256": "aebe9c12db9ff88851f034231477a1256694c3b70aa5bab8f6444ee68435c2b5",
+      "mode": 420
+    },
+    {
+      "path": "remote/fra-device.cjs",
+      "size": 47107,
+      "sha256": "e1a2398c1fb2f75c8e14fe13167dfc1fae594b3722d5f47801bfb21fdf6b6f6a",
+      "mode": 420
+    },
+    {
+      "path": "remote/fra-stream.cjs",
+      "size": 21216,
+      "sha256": "2df2b6eb2e4d78440373d691d5d03153da32847941a93419cef3e6213c3c92f3",
+      "mode": 420
+    },
+    {
+      "path": "remote/remote-lead-mcp.cjs",
+      "size": 23098,
+      "sha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
+      "mode": 420
+    }
+  ],
+  "derivedOrAddedFiles": [
+    {
+      "path": "PROVENANCE.md",
+      "upstreamSha256": null,
+      "packagedSha256": "7e94f0a18b0055376b54891d7871a0addb8812dd854d5b6d0724f0e4ee47e0b8",
+      "reason": "Document upstream attribution, packaged scope and TEAA Extended runtime derivation."
+    },
+    {
+      "path": "bin/fra-gateway.cjs",
+      "upstreamSha256": "3c3771ea5aa8d3d63939c1f662b1e534b923088c6c0844cd102c036b5d07abb8",
+      "packagedSha256": "76970e0ed22cc1ee33624d17650c3d090433085bc71566af8516a5a1999d4eb6",
+      "reason": "Probe the account service at /v1/health used by the hosted and self-hosted releases, with /healthz fallback for older fronts."
+    },
+    {
+      "path": "bin/gateway-compatibility.cjs",
+      "upstreamSha256": "22c54b45bc7a4cf217926ab30694155493763b7779577b96fe38e8d9242d6589",
+      "packagedSha256": "f6d172b3a9db0d9145418a0e495f8bb7e7008a8ec4e45bfcf8f8a8a8be48cf1f",
+      "reason": "Use SystemRoot-qualified PowerShell for native Windows compatibility checks while retaining Linux behavior."
+    },
+    {
+      "path": "bin/windows-package-identity.ps1",
+      "upstreamSha256": null,
+      "packagedSha256": "7325a6841d6d4251273374ab58848299b8d5b314b4f100798a16933c550939c3",
+      "reason": "Add the Windows package identity verifier used to validate the exact installed Hub component tree and ACLs."
+    },
+    {
+      "path": "remote/remote-lead-mcp.cjs",
+      "upstreamSha256": "84ca47c9b992e94097d4aad4a8a2f63326b1fbc5ddb3168ffab8e3d1fbdb80d2",
+      "packagedSha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
+      "reason": "Add native Windows Fleet V5 process-ancestry observation; query the selected gateway compatibility claim before FRA open, include it in the stream request, and export main for the bundled client wrapper."
+    }
+  ],
+  "packagedInventory": {
+    "fileCount": 10,
+    "files": [
+      {
+        "path": "PROVENANCE.md",
+        "size": 1105,
+        "sha256": "7e94f0a18b0055376b54891d7871a0addb8812dd854d5b6d0724f0e4ee47e0b8",
+        "mode": 420
+      },
+      {
+        "path": "bin/fra-gateway.cjs",
+        "size": 12340,
+        "sha256": "76970e0ed22cc1ee33624d17650c3d090433085bc71566af8516a5a1999d4eb6",
+        "mode": 420
+      },
+      {
+        "path": "bin/gateway-compatibility.cjs",
+        "size": 15387,
+        "sha256": "f6d172b3a9db0d9145418a0e495f8bb7e7008a8ec4e45bfcf8f8a8a8be48cf1f",
+        "mode": 420
+      },
+      {
+        "path": "bin/hub-lead-bridge.cjs",
+        "size": 12578,
+        "sha256": "d343a1553779f50de70df4709d9133bfc912f9474cf6f6aebeeaf14569a69740",
+        "mode": 420
+      },
+      {
+        "path": "bin/level-holder.cjs",
+        "size": 988,
+        "sha256": "17d7217d87a27ce1dd24fc326d1600eb902a209d9d72f45413ffe2a8cb5dde60",
+        "mode": 420
+      },
+      {
+        "path": "bin/windows-package-identity.ps1",
+        "size": 3534,
+        "sha256": "7325a6841d6d4251273374ab58848299b8d5b314b4f100798a16933c550939c3",
+        "mode": 420
+      },
+      {
+        "path": "remote/compatibility.json",
+        "size": 203,
+        "sha256": "aebe9c12db9ff88851f034231477a1256694c3b70aa5bab8f6444ee68435c2b5",
+        "mode": 420
+      },
+      {
+        "path": "remote/fra-device.cjs",
+        "size": 47107,
+        "sha256": "e1a2398c1fb2f75c8e14fe13167dfc1fae594b3722d5f47801bfb21fdf6b6f6a",
+        "mode": 420
+      },
+      {
+        "path": "remote/fra-stream.cjs",
+        "size": 21216,
+        "sha256": "2df2b6eb2e4d78440373d691d5d03153da32847941a93419cef3e6213c3c92f3",
+        "mode": 420
+      },
+      {
+        "path": "remote/remote-lead-mcp.cjs",
+        "size": 25995,
+        "sha256": "58ad0ccce8eee95cf2cc4e69a2c1c4b294b0d4e33c0a9c0bb03c5f0624b61cc3",
+        "mode": 420
+      }
+    ],
+    "filesSha256": "0a4b753543f0f477133be26d9a5eb27f47ed74293fd45a4f964a548820d26c5a",
+    "selfReference": "PROVENANCE.json is omitted here to avoid a self-hash cycle; its final packaged hash is in vendor/manifest.json and components.lock.json."
+  }
+}

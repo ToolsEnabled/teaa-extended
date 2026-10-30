@@ -1,0 +1,10 @@
+{
+  "adapterId": "fra-hub",
+  "adapterSchema": 2,
+  "hubVersion": "1.0.0-security-candidate.1",
+  "capabilities": [
+    "stdio-stream-v1",
+    "bounded-session-v1",
+    "compatibility-required-v1"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "objective": "The accounting team needs CSV export from the invoice CLI, documented in the README.",
+  "scope": "The invoice-cli repository: src/, test/ and README.md.",
+  "catalog": [
+    { "id": "add-csv-export", "version": "1", "kind": "atom", "role": "task",
+      "text": "Add a --csv flag to {{cli}} that prints the invoices as CSV with the header id,customer,amount,due. Quote every field that contains a comma. Put the CSV encoder in its own module or inside the CLI file.",
+      "parameterSchema": { "cli": { "type": "string", "required": true } },
+      "semantics": { "kind": "task",
+        "completion": { "done": "node {{cli}} --csv prints the header and one line per invoice, and the export tests pass.",
+          "checks": [
+            { "id": "tests", "description": "The CSV export tests pass", "command": "node --test test/export.test.js" },
+            { "id": "header", "description": "The CSV output starts with the header line", "command": "node {{cli}} --csv --input test/fixtures/invoices.json | head -n 1 | grep -qx 'id,customer,amount,due'" }],
+          "fieldPatterns": { "cli": "^[A-Za-z0-9._/-]+$" } },
+        "intention": [
+          { "about": "encoder in its own module or inside the CLI file", "intent": "Either is fine. A separate module is better if it stays under 80 lines with no dependencies; the next change adds TSV export." }] } },
+    { "id": "document-csv-export", "version": "1", "kind": "atom", "role": "task",
+      "text": "Document the --csv flag in {{readme}} under a heading CSV export, with one example command and its output. Show the output as a code block or a table.",
+      "parameterSchema": { "readme": { "type": "string", "required": true } },
+      "semantics": { "kind": "task",
+        "completion": { "done": "{{readme}} has a CSV export section with an example command and its output.",
+          "checks": [
+            { "id": "section", "description": "The readme has a CSV export section", "command": "grep -q '^## CSV export' {{readme}}" },
+            { "id": "example", "description": "The readme shows the example command", "command": "grep -q -- '--csv' {{readme}}" }],
+          "fieldPatterns": { "readme": "^[A-Za-z0-9._/-]+$" } },
+        "intention": [
+          { "about": "code block or table", "intent": "Use whichever reads better on GitHub for three invoices; readers copy the command, so keep it in a code block." }] } }
+  ],
+  "compose": [
+    { "use": "add-csv-export", "params": { "cli": "src/cli.js" } },
+    { "use": "document-csv-export", "params": { "readme": "README.md" } },
+    { "use": "no-dependencies" },
+    { "use": "committed" }
+  ]
+}

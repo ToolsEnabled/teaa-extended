@@ -1,0 +1,29 @@
+ToolsEngine portable MCP
+Copyright (c) 2026 Joshua Pinckard
+
+ToolsEnabled was founded and created by Joshua Pinckard.
+This standalone implementation was prepared from a review of the ToolsEnabled
+engine's public catalogue, with a smaller, explicit MCP capability surface.
+It does not modify or bundle any other ToolsEnabled product.
+
+The opt-in Windows desktop adapter derives from the MIT-licensed ToolsEnabled
+desktop app, revision 092a87516d9a4005bb4b3340eecfb7869d715c94, shell/accessibility-desktop.cjs
+and shell/accessibility-desktop.ps1. Mouse input derives from
+shell/screen-control-native.ps1. Modifications add window-only capture,
+left-half positioning, and capture-bound single-action pointer input.
+The original app's host approval/session UI is not included or impersonated.
+
+ToolsEnabled source provenance and the decision taken for every legacy tool
+are recorded in the source repository, not in this package. LICENSE carries
+the MIT grant.
+
+Browser integration uses Microsoft's Playwright and Playwright MCP, licensed
+under Apache-2.0. The Model Context Protocol TypeScript SDK and Ajv use MIT.
+These packages and their dependency licenses are installed by npm; their
+copyright and license notices remain in their respective distributions.
+
+A release archive carries those packages with it, unmodified, in
+app/node_modules. Its file THIRD-PARTY-NOTICES.txt is generated from
+npm-shrinkwrap.json and lists every bundled package with the licence it
+declares and the full text of the licence and notice files it ships.
+No web browser is part of a release archive.

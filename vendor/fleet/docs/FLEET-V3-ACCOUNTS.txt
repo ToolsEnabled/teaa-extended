@@ -1,0 +1,67 @@
+Fleet V3 optional explicit account controls
+
+This independently deliverable port extends the V3 native control/launcher. It
+uses V3's serialized revision checks, immutable commits, compact receipts and
+transactional SQLite tree store. It keeps the existing answer/resume attempt
+record and conversation handling. No account service is loaded for an inherited
+route. Existing Grok and default subscription routes require no setup here.
+
+A lead may use fleet.control account-read to read retained route/default and
+completion metadata. Explicit offset/limit pages include page.nextOffset;
+expectedRevision detects intervening account control edits. With provider codex
+and account, account-read authenticates a current read-only provider catalog.
+That read requests account/read refreshToken=false and paginated model/list;
+it starts no thread or inference and is never a passing model-call receipt.
+
+To select managed future launches, a lead first reads the current revision and
+uses account-select with provider, account and expectedRevision. A new Codex
+selection MUST supply model: the exact current account-advertised model string.
+There is no implicit model/default, credit fallback, alternate account or
+automatic reroute. active:false clears only that provider's future selection.
+Workers cannot read/select accounts through these lead-only controls.
+
+Selection validates identity, access-only delivery, canonical single-holder
+custody, actual subscription allowance and disabled spending. The provider's
+actual exhaustion flags or 100% refuse. Valid 95%, 99% and 99.99% remain usable;
+rounded display values and advisory pacing thresholds never exhaust a route.
+Missing/malformed/stale allowance or identity and unknown/enabled spending
+refuse. Inherited authentication/endpoint overrides are not silently replaced.
+
+New Codex ordinary work needs current authenticated catalog, identity, allowance
+and custody, NOT any past completed call, cached model table or model-policy
+registry. A missing model-policy file does not block first ordinary work. The
+actual child checks its catalog, usage and custody again before thread admission
+and confirms the exact model before a turn can be submitted. A provider refusal
+is retained as a failure, without retrying a different route.
+
+Account admission's completionStatus is not-observed until an authenticated
+provider completion from the bound thread/turn is observed. lastAttempt records
+succeeded, failed, startup-refused or not-confirmed separately; lastSuccess is
+created only on observed success and survives a later failure. Selection,
+catalog read, admission and startup never set realCallPassed. The old legacy
+proof-only helper remains for compatibility with previously pinned legacy
+routes; new Codex selections always use explicit ordinary-work admission.
+
+Once bound, a conversation retains its account, home and thread through future
+selection changes/clears and resumes. Existing threads keep their inherited
+home. No transcript or credential is migrated by the account control. Both the
+provider child and its Fleet MCP inherit the selected account home; the lead's
+home stays intact. SQLite stores selection and per-worker evidence using the
+existing schema, with revision/transaction rollback on failure.
+
+The service bridge and canonical custody files are private code-only artifacts
+in the companion account-artifacts packet, qualified together with this source.
+Tests accept FLEET_TEST_ACCOUNT_SERVICE pointing to the extracted service/src;
+the delivery layout also supports ../account-artifacts/service/src. No account
+home, token or credential belongs in a source/build packet.
+
+Activation is a separate lead-owned operation, currently NOT performed. See the
+companion ACTIVATION-ROLLBACK.txt for exact proposed paths, current baseline
+hashes, same-daemon/lock and access-only delivery requirements. Existing V3
+routes may be used while managed-account activation remains pending. No second
+review, timer, coordinator replacement or V2 deployment is required by this port.
+
+Custody deployment configuration is explicit: TELOGINS_CODEX_CUSTODY_CONFIG
+names the existing configuration, and TELOGINS_CODEX_CUSTODY_HOST pins its
+expected SSH host. Missing or mismatched host pins refuse before SSH. Use the
+canonical custody host for your deployment; Fleet embeds no machine identity.

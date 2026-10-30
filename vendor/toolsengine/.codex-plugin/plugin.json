@@ -1,0 +1,26 @@
+{
+  "name": "toolsengine",
+  "version": "0.2.0-alpha.4",
+  "description": "Local files and public web",
+  "skills": "./codex-skills/",
+  "mcpServers": "./.codex-plugin/mcp.json",
+  "hooks": {},
+  "interface": {
+    "displayName": "ToolsEngine",
+    "shortDescription": "Local files and public web",
+    "developerName": "ToolsEnabled, Inc.",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://toolsenabled.ai/toolsengine/",
+    "supportURL": "https://github.com/ToolsEnabled/toolsengine/issues",
+    "privacyPolicyURL": "https://github.com/ToolsEnabled/toolsengine/blob/main/PRIVACY.md",
+    "longDescription": "Read, search and update files in a selected local project and read requested public web pages. Browser, desktop, profile transfer and private-network access are unavailable in this package."
+  },
+  "author": {
+    "name": "ToolsEnabled, Inc.",
+    "email": "support@toolsenabled.ai"
+  }
+}

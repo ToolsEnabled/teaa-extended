@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "toolsengine": {
+      "command": "node",
+      "args": [
+        "./.codex-plugin/start.mjs"
+      ],
+      "cwd": ".",
+      "env_vars": [
+        "TOOLSENGINE_CODEX_WORKSPACE",
+        "TOOLSENGINE_CODEX_RUNTIME"
+      ]
+    }
+  }
+}

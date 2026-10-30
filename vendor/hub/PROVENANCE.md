@@ -1,0 +1,5 @@
+# Hub runtime provenance
+
+The selected upstream Hub files come from `ToolsEnabled/fra-security-20261026`, path `hub`, commit `59ada51cfab0a2aaa066d277b5ed0bd81ba122b4`. `PROVENANCE.json` separates the immutable upstream file inventory from the packaged inventory and lists each derived or added path with its upstream hash when one exists, final packaged hash, and reason. The packaged inventory excludes `PROVENANCE.json` itself to avoid a self-hash cycle; its final hash is recorded in the enclosing `vendor/manifest.json` and `components.lock.json`.
+
+TEAA Extended adds the native Windows Fleet Hub gateway/client lifecycle and Windows ancestry/package identity support. Its client-derived Hub changes fetch and attach the selected compatibility claim, export the remote MCP entry point for the bundled wrapper, and probe both account health route generations. This documents bundled Hub gateway support and Windows client behavior; hosted FRA account and relay services remain separately qualified. Deployment configurations, live credentials, logs, reports, backups, and customer state are excluded.

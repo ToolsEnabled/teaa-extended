@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "product": "@toolsenabled/teaa",
+  "version": "0.5.0-alpha.6",
+  "qualification": "TEAA Extended 0.5.0-alpha.6: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
+  "fleet": {
+    "version": "5.0.0-alpha.13",
+    "commit": "2c37a8a82ec35b014e957e3fe2be827658868658",
+    "platform": "linux-x64",
+    "archive": "fleetV5-5.0.0-alpha.13-linux-x64.zip",
+    "archiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb",
+    "identitySha256": "bfcc1bea8650c767252f794c094076db0c6347b5a87b5a68f0acd358d9981927",
+    "runtime": {
+      "name": "fleetV5",
+      "generation": 5,
+      "entry": "vendor/fleet/bin/fleetV5.js",
+      "stateDirectory": "fleetV5-state",
+      "legacyEntries": [
+        "vendor/fleet/bin/fleetV4.js",
+        "vendor/fleet/bin/fleetV3.js",
+        "vendor/fleet/bin/fleetV2.js",
+        "vendor/fleet/bin/toolsenabled-host.js"
+      ],
+      "legacyStateDirectories": [
+        "fleetV4-state",
+        "fleetV3-state",
+        "fleetV2-state",
+        "fleet-state"
+      ],
+      "workerPrograms": [
+        "fleetV5.js",
+        "fleetV4.js",
+        "fleetV3.js",
+        "fleetV2.js",
+        "toolsenabled-host.js",
+        "linux-process-supervisor.py"
+      ],
+      "securityScript": "vendor/fleet/tools/windows-state-security.ps1",
+      "migrationKey": "fleet-v4-to-v5"
+    },
+    "derivation": "private-teaa-alpha5-fleet-successor-2c37a8a",
+    "packagedFilesSha256": "c29059cfe09b971fa8e05e317f0f6792cb47862a2abe032b5d68dfc95cf62a7e",
+    "parentCommit": "7b51132da31c98d213ae1c35d183403ba7e6e6c9",
+    "candidateIdentity": "Private TEAA BASE alpha5 successor; embedded Fleet alpha.13 is inherited metadata and not the frozen study artifact.",
+    "upstreamIdentitySha256": "8247a1cdd00790ed91a56d24fab53ed654fcf97376ff1e247b22f19ea717ea05"
+  },
+  "toolsengine": {
+    "version": "0.2.0-alpha.4",
+    "commit": "234c472ec5c563cd45489afae802147fe09fc812",
+    "platform": "shared-portable",
+    "identitySha256": "66852ec2d8ed072a7e44b3294bc4e1ca9716e471a527590ee64a533e0e732ae0",
+    "packagedFilesSha256": "33e29a8087105fbb77d0a601e5a9eab7729f0bf9c0dd1a98933431d6ffdcd216"
+  },
+  "knowledge": {
+    "version": "1.2.0",
+    "build": "20261029-reliability",
+    "file": "knowledge.py",
+    "sha256": "72beee349b5a1013f30d71e95da97dcace76a6b26f26881ae8bd87d926ae08f5",
+    "packagedFilesSha256": "aa3809c226bbef3a43554076b0e07af5b7f65369b7e90c5ca42f6bdb3943be1e",
+    "platform": "shared-portable",
+    "upstreamSha256": "9b44cb93c2852f458ca506ce88607c8ba5178131c23836c60c987bff3dd1dd29",
+    "compatibilityPatch": "Accepted Knowledge 1.2.0 reliability core with TEAA Windows port retained: conditional msvcrt/fcntl locks, bounded native process ancestry from trusted SystemRoot PowerShell, fail-closed identity checks, os.devnull Git paths and explicit Windows CRLF normalization under isolated Git config"
+  },
+  "edition": "TEAA Extended",
+  "derivation": {
+    "teaaSourceCommit": "4f06d4def577bad88e155147537253443c8930f9",
+    "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
+    "fleetTarget": "linux-x64",
+    "fleetArchiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb"
+  },
+  "baseSourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+  "basePin": {
+    "schema": "teaa-base-pin/1",
+    "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+    "branch": "teaa-base-alpha5-fleet-2c37a8a",
+    "basePackages": {
+      "linux-x64": {
+        "sha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d",
+        "releaseManifestSha256": "b8b3711f05aa049d544d9f2f659fa2fa362684eeebfa6a8f07f7cbcf6efd6e83",
+        "componentsLockSha256": "f4bad0a1d825592b8d16b8b58f0ee198e50a9f69037b98fd2a52ca8ced6539cc",
+        "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+        "abIdentical": true
+      },
+      "windows-x64": {
+        "sha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831",
+        "releaseManifestSha256": "4600ebe21b2c2b4c40a4deb1c626e7c3c4c39ee5fbbbfac2dea97eb44fc1f382",
+        "componentsLockSha256": "314a05e97ecd93a2b8974315928787bfa86b28d7b7b23d49a55e0226a9bbfb7a",
+        "sourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+        "abIdentical": true
+      }
+    },
+    "fleet": {
+      "version": "5.0.0-alpha.13",
+      "commit": "2c37a8a82ec35b014e957e3fe2be827658868658",
+      "targets": {
+        "linux-x64": {
+          "archiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb",
+          "identitySha256": "bfcc1bea8650c767252f794c094076db0c6347b5a87b5a68f0acd358d9981927",
+          "packagedFilesSha256": "c29059cfe09b971fa8e05e317f0f6792cb47862a2abe032b5d68dfc95cf62a7e"
+        },
+        "windows-x64": {
+          "archiveSha256": "f820c9fb518295d6ad5fb070fb40e07932c4321bbc3dcd7aa8c00d3ca7c1889f",
+          "identitySha256": "aaa3a44436f8b88e05621bc33cb765c786504a51329398fc36971f2936764a56",
+          "packagedFilesSha256": "5793981f66965e320d32d8a95c954432578ee80dddcb0806e4f8cf53d9229f20"
+        }
+      }
+    },
+    "toolsengine": {
+      "version": "0.2.0-alpha.4",
+      "commit": "234c472ec5c563cd45489afae802147fe09fc812",
+      "identitySha256": "66852ec2d8ed072a7e44b3294bc4e1ca9716e471a527590ee64a533e0e732ae0",
+      "packagedFilesSha256": "33e29a8087105fbb77d0a601e5a9eab7729f0bf9c0dd1a98933431d6ffdcd216"
+    },
+    "knowledge": {
+      "version": "1.2.0",
+      "build": "20261029-reliability",
+      "upstreamSha256": "9b44cb93c2852f458ca506ce88607c8ba5178131c23836c60c987bff3dd1dd29",
+      "derivedKnowledgePySha256": "72beee349b5a1013f30d71e95da97dcace76a6b26f26881ae8bd87d926ae08f5",
+      "packagedFilesSha256": "aa3809c226bbef3a43554076b0e07af5b7f65369b7e90c5ca42f6bdb3943be1e",
+      "compatibility": "Accepted Knowledge 1.2.0 reliability core with TEAA Windows port retained: conditional msvcrt/fcntl locks, bounded native process ancestry from trusted SystemRoot PowerShell, fail-closed identity checks, os.devnull Git paths and explicit Windows CRLF normalization under isolated Git config"
+    },
+    "qualification": "Accepted clean BASE alpha5 code/integrity input from root handoff; exact A/B archives and component/source manifests verified. BASE combined/native CLI qualification is independent and not claimed by this Extended pin.",
+    "reproducibilityReceipts": {
+      "linux-x64": {
+        "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
+        "pairSha256": "3a541d0fdcb386439e37b45759300e0129447a668cb7e0d6eb766dea03f78c4d"
+      },
+      "windows-x64": {
+        "sha256": "b95d5a0664423af21e64b26e4faac0ac03776d617beee2450e552c65f25c8958",
+        "pairSha256": "e1cc99e0dfd3621c5192de2473dc8b85cc756463fcd9c863e6e2a0d25814e831"
+      }
+    },
+    "derivation": {
+      "teaaSourceCommit": "9341c886581ba2a1ebee1a925517ddae9bcf4de1",
+      "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
+      "fleetTargets": {
+        "linux-x64": {
+          "archiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb",
+          "identitySha256": "bfcc1bea8650c767252f794c094076db0c6347b5a87b5a68f0acd358d9981927",
+          "packagedFilesSha256": "c29059cfe09b971fa8e05e317f0f6792cb47862a2abe032b5d68dfc95cf62a7e"
+        },
+        "windows-x64": {
+          "archiveSha256": "f820c9fb518295d6ad5fb070fb40e07932c4321bbc3dcd7aa8c00d3ca7c1889f",
+          "identitySha256": "aaa3a44436f8b88e05621bc33cb765c786504a51329398fc36971f2936764a56",
+          "packagedFilesSha256": "5793981f66965e320d32d8a95c954432578ee80dddcb0806e4f8cf53d9229f20"
+        }
+      }
+    }
+  },
+  "fra-core": {
+    "sourceRepository": "ToolsEnabled/fra-security-20261026",
+    "sourceCommit": "59ada51cfab0a2aaa066d277b5ed0bd81ba122b4",
+    "sourceScope": "Current runtime library files required by the packaged FRA client; tests, reports, deployments, credentials and unrelated desktop content excluded.",
+    "fileCount": 26,
+    "packagedFilesSha256": "2bbdb59659a70cb7a6b290d8e8519d608c764ed466568f15c5435eb0ce9c5015"
+  },
+  "hub": {
+    "sourceRepository": "ToolsEnabled/fra-security-20261026",
+    "sourceCommit": "59ada51cfab0a2aaa066d277b5ed0bd81ba122b4",
+    "sourceScope": "Selected Hub gateway, bridge and FRA client runtime files only; deployment configs, logs, keys, reports and backups excluded.",
+    "fileCount": 11,
+    "packagedFilesSha256": "a25b0063ecb136a5f9885547504bf3e1bc0424f48a6a1c9e85200c398e2bf0ff"
+  },
+  "teaaEdition": "extended"
+}

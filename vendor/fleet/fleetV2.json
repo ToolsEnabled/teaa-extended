@@ -1,0 +1,6 @@
+{
+  "name": "fleetV2",
+  "version": "2.0.0-alpha.4.rules-models.3.manuals.3",
+  "distribution": "standalone-mcp",
+  "entry": "bin/fleetV2.js"
+}

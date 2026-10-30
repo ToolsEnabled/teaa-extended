@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "agy",
+  "name": "Antigravity CLI",
+  "command": "agy",
+  "worker": {
+    "driver": "acp",
+    "args": [],
+    "held": "AGY workers are not enabled in this build. Ordinary CLI stream-json integration is under review; use AGY as an MCP client."
+  },
+  "signIn": {
+    "result": "unknown",
+    "how": "Sign in through your own official Antigravity CLI session. Fleet never reads or copies account credentials."
+  },
+  "register": {
+    "kind": "command",
+    "add": [
+      "mcp",
+      "add",
+      "{env...}",
+      "{name}",
+      "--",
+      "{command}",
+      "{args...}"
+    ],
+    "remove": [
+      "mcp",
+      "remove",
+      "{name}"
+    ],
+    "list": [
+      "mcp",
+      "list"
+    ],
+    "envFlag": "--env",
+    "profile": {
+      "default": ".gemini/config",
+      "file": "mcp_config.json"
+    },
+    "config": {
+      "format": "json",
+      "container": "mcpServers",
+      "entryType": "command"
+    },
+    "inspection": {
+      "kind": "json-config"
+    }
+  },
+  "models": {
+    "flag": "--model"
+  },
+  "permissions": {
+    "aliases": {},
+    "lead": [
+      {
+        "when": {
+          "--dangerously-skip-permissions": true
+        },
+        "level": 4
+      },
+      {
+        "when": {
+          "--mode": "accept-edits"
+        },
+        "level": 3
+      },
+      {
+        "when": {
+          "--mode": "plan"
+        },
+        "level": 1
+      }
+    ],
+    "worker": {
+      "1": {
+        "args": [],
+        "allow": "none"
+      },
+      "2": {
+        "args": [],
+        "allow": "none"
+      },
+      "3": {
+        "args": [],
+        "allow": "edits"
+      },
+      "4": {
+        "args": [],
+        "allow": "all"
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "@toolsenabled/teaa",
+  "version": "0.5.0-alpha.6",
+  "description": "TEAA Extended: Fleet, ToolsEngine and Knowledge with FRA client transport and native Fleet Hub",
+  "license": "MIT",
+  "author": "ToolsEnabled, Inc.",
+  "homepage": "https://toolsenabled.ai/",
+  "type": "module",
+  "bin": {
+    "teaa": "bin/teaa.js"
+  },
+  "files": [
+    "bin/teaa.js",
+    "src/config.js",
+    "src/setup.js",
+    "src/bundle.js",
+    "src/platform.js",
+    "src/version.js",
+    "src/install.js",
+    "src/mcp",
+    "components.lock.json",
+    "vendor-lock.json",
+    "README.md",
+    "ORCHESTRATOR-GUIDE.md",
+    "SETUP.md",
+    "UPGRADE.md",
+    "CAPABILITIES.md",
+    "BUILDING.txt",
+    "WINDOWS-QUALIFICATION.txt",
+    "LICENSE",
+    "NOTICE",
+    "PRIVACY.md",
+    "CHANGELOG.md",
+    "src/fleet-pin.cjs",
+    "src/windows-process-observation.cjs",
+    "src/windows-own-processes.ps1",
+    "bin/teaa-extended.js",
+    "bin/hub-gateway-runtime.cjs",
+    "bin/hub-client.cjs",
+    "bin/hub-profile.cjs",
+    "vendor/hub",
+    "vendor/fra-core",
+    "EXTENDED-SETUP.md",
+    "BASE-PIN.json"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "os": [
+    "linux",
+    "win32"
+  ],
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/integration.test.js test/runtime.test.js test/config-runtime.test.js test/installer.test.js test/bundle-upgrade.test.js test/presentation.test.js test/presentation-style.test.js test/knowledge-origin.test.js test/branding.test.cjs test/teaa-rename.test.cjs test/teaa-extended.test.cjs test/teaa-hub.test.cjs test/hub-path-fixes.test.cjs test/hub-gateway-runtime.test.cjs test/windows-private-path.test.cjs test/python-runtime.test.js test/packaged-fra-cli.test.cjs",
+    "pack:release": "python3 scripts/pack-private.py"
+  },
+  "keywords": [
+    "mcp",
+    "fleet",
+    "toolsengine",
+    "knowledge",
+    "teaa",
+    "fra",
+    "hub"
+  ],
+  "dependencies": {},
+  "private": false,
+  "teaaEdition": "extended"
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "fleet-v4-final-requirements/1",
+  "qualification": "private-linux-candidate; independent final acceptance pending",
+  "sourceIdentity": "Exact commit is recorded by the containing archive release.json; evidence handoff pins this file's source commit.",
+  "inputs": {
+    "lead": "f34a9a7d8d264874115bdbe663c71114eeecd6e0",
+    "native": "0c41fd49147661fdc807f01c4b283aaff02df3dd",
+    "clients": "a06286fd455a86702a838df32f33844109e44d6f",
+    "independentF1": "e631af4"
+  },
+  "fullParityQualified": false,
+  "universalNativeMediation": false,
+  "migrationPerformed": false,
+  "requirements": [
+    {
+      "id": 1,
+      "status": "implemented-with-live-client-limits",
+      "implementation": [
+        "src/lib/native-adapters/claude-codex-native.js",
+        "src/lib/providers/native-harness-adapters.js",
+        "src/lib/providers/pi-rpc-worker.js",
+        "config/agents/pi.json"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "Direct clients, workers and AGY native lead are separate columns below."
+    },
+    {
+      "id": 2,
+      "status": "supported-participating-paths",
+      "implementation": [
+        "src/lib/native-execution/contract.js",
+        "src/lib/region-holds/byte-authority.js",
+        "src/lib/providers/host-control.js"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap",
+        "evidence/cancellation-producer-red.tap",
+        "evidence/cancellation-producer-green.tap"
+      ],
+      "behaviors": [
+        "disjoint edits",
+        "same-target stale refusal",
+        "internal reread has no fresh observation",
+        "partial/truncated delivered observations",
+        "one original-file multi-edit publication",
+        "retry and durable replay",
+        "queued cancellation before admission",
+        "post-admission uncertainty without compensation",
+        "session/fork/resume identity",
+        "nested identity/permissions"
+      ],
+      "limits": "No cross-file atomicity. Delete/rename unsupported. No second byte authority."
+    },
+    {
+      "id": 3,
+      "status": "narrow-guarantee-explicit",
+      "implementation": [
+        "native-adapter-matrix.json",
+        "INTERFACE.md"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "Host tools and participating Pi read/edit are mediated. Native Claude/Codex/Grok writes, fail-open hooks and post-write notifications do not establish mandatory interception."
+    },
+    {
+      "id": 4,
+      "status": "alternate-writers-accounted-unmediated",
+      "implementation": [
+        "src/lib/native-execution/contract.js",
+        "native-adapter-matrix.json"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "Shell/subprocess/formatter/Git, other MCP and unmanaged writers are outside the byte boundary. Host create is supported; native write/create and delete/rename remain outside. Inherited environment remains; no new OS sandbox or privilege."
+    },
+    {
+      "id": 5,
+      "status": "existing-codemode-only",
+      "implementation": [
+        "src/lib/providers/native-harness-adapters.js",
+        "src/lib/providers/pi-host-bridge.js"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "Optional existing Pi CodemodeSandbox; no new engine. This candidate has no packaged Codex CodeMode dependency."
+    },
+    {
+      "id": 6,
+      "status": "existing-browser-boundary-preserved",
+      "implementation": [
+        "src/lib/providers/host-control.js"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "ToolsEngine browser and opaque sign-in paths unchanged; host bytes retain existing authority. No new FRA/Hub/UI/network implementation."
+    },
+    {
+      "id": 7,
+      "status": "transactional-lifecycle-and-import-tested",
+      "implementation": [
+        "src/lib/fleet-v3-import.js",
+        "src/lib/fleet-state-draft.js",
+        "src/lib/fleet-v3-tree-store.js"
+      ],
+      "checks": [
+        "evidence/final-integration/combined-green.tap"
+      ],
+      "limits": "Recording lifecycle and synthetic import evidence are not live-provider effectiveness. Source roots stay unchanged; no workers auto-start."
+    },
+    {
+      "id": 8,
+      "status": "distribution-allowlisted-no-spend-gates-retained",
+      "implementation": [
+        "installer/fleetV2/SOURCE-ALLOWLIST",
+        "src/lib/fleet-v3-accounts.js"
+      ],
+      "checks": [
+        "evidence/final-integration/accounts-green.tap",
+        "evidence/final-integration/claude-metadata-red.tap"
+      ],
+      "limits": "Archive has no personal AGENTS/profile/cache/transcript/credential or validation node_modules. Actual windows/extra usage/custody/no-credit checks remain. Metadata fix does not attest native Claude account agreement."
+    }
+  ],
+  "evidenceColumns": [
+    "directClientModelFree",
+    "directClientActualModel",
+    "fleetWorkerRecording",
+    "fleetWorkerActualModel",
+    "nativeLeadActualModel"
+  ],
+  "adapters": [
+    {
+      "provider": "claude",
+      "role": "direct-and-worker",
+      "directClientModelFree": "official MCP loading and raw host read/patch/stale checks on earlier 6ae5f79 runtime",
+      "directClientActualModel": "not-run; native account identity agreement unresolved",
+      "fleetWorkerRecording": "existing launcher/adapter checks; native tools and permissions retained",
+      "fleetWorkerActualModel": "not-qualified-on-final-pin",
+      "nativeLeadActualModel": "not-qualified",
+      "evidence": [
+        "SOL-CLIENTS-REPORT.md",
+        "evidence/clients-sol/claude-routes.json",
+        "evidence/clients-sol/discovery.json"
+      ]
+    },
+    {
+      "provider": "codex",
+      "role": "direct-and-worker",
+      "directClientModelFree": "official discovery, unread refusal and host effect on earlier 6ae5f79 runtime",
+      "directClientActualModel": "gpt-6.1-sol/high native turn observed; write elicitation declined, unchanged targets, smoke exit1; resume exit0 without new turn",
+      "fleetWorkerRecording": "existing launcher/adapter/lifecycle checks",
+      "fleetWorkerActualModel": "not-qualified-on-final-pin; builder model attestation is separate",
+      "nativeLeadActualModel": "not-qualified",
+      "evidence": [
+        "evidence/clients-sol/codex-live-permission-refused.json",
+        "evidence/clients-sol/codex-resume.json",
+        "SOL-CLIENTS-REPORT.md"
+      ]
+    },
+    {
+      "provider": "pi",
+      "role": "direct-and-worker",
+      "directClientModelFree": "official 1.4.0 operations, RPC startup and synthetic transcript resume; participating read/edit mediation",
+      "directClientActualModel": "not-qualified",
+      "fleetWorkerRecording": "actual registry -> host launcher -> pi-rpc driver -> adapter; V4 SQLite lifecycle using recording transport",
+      "fleetWorkerActualModel": "not-qualified",
+      "nativeLeadActualModel": "not-qualified",
+      "evidence": [
+        "evidence/final-integration/combined-green.tap",
+        "SOL-NATIVE-REPORT.md"
+      ],
+      "limits": [
+        "official write/bash unmediated",
+        "minimum native level4",
+        "Only/Optimized unsupported",
+        "generic fork unsupported"
+      ]
+    },
+    {
+      "provider": "grok",
+      "role": "direct-and-worker",
+      "directClientModelFree": "official registration and MCP read/patch/stale receipt retained",
+      "directClientActualModel": "not-qualified",
+      "fleetWorkerRecording": "existing ACP production driver recording lifecycle",
+      "fleetWorkerActualModel": "authenticated ACP startup/config confirms grok-4.7/high; no model turn",
+      "nativeLeadActualModel": "not-qualified",
+      "evidence": [
+        "reports/sol-native-grok-established.json",
+        "reports/sol-native-grok-final.log",
+        "SOL-NATIVE-REPORT.md"
+      ],
+      "limits": [
+        "native writes unmediated",
+        "hooks fail open",
+        "unsigned profile ACP_AUTH_REQUIRED is setup unknown, not policy refusal"
+      ]
+    },
+    {
+      "provider": "agy",
+      "role": "native-lead-only",
+      "directClientModelFree": "official 1.4.7 registration/listing; raw MCP actor control fixture is separately labelled",
+      "directClientActualModel": "not-applicable-as-worker",
+      "fleetWorkerRecording": "not-requested; worker held",
+      "fleetWorkerActualModel": "not-requested; worker held",
+      "nativeLeadActualModel": "unknown auth/usage; native invocation not qualified",
+      "evidence": [
+        "evidence/clients-sol/agy-control.json",
+        "SOL-CLIENTS-REPORT.md"
+      ],
+      "limits": [
+        "raw actor label is not authenticated AGY native identity",
+        "no worker hold bypass"
+      ]
+    }
+  ],
+  "migration": {
+    "authorization": "Owner permits migration after qualification without another approval request; owning lead coordinates activation and rollback.",
+    "procedure": "docs/FLEET-V4-MIGRATION.md",
+    "ready": false,
+    "blockers": [
+      "continuing verifier final source/package acceptance pending",
+      "native client actual-model qualification incomplete as above",
+      "universal native writer mediation unavailable within inherited-environment contract"
+    ],
+    "preserve": [
+      "V3 root and previous runtime",
+      "conversations/tasks/revisions/asks/results/assessments/accounting",
+      "frozen running study cohorts",
+      "unknown publication targets"
+    ],
+    "workersStartedByImport": 0
+  }
+}

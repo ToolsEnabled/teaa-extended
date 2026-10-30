@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "pi",
+  "name": "Pi",
+  "command": "pi",
+  "entryPoints": ["@earendil-works/pi-coding-agent/dist/bundle/cli.js"],
+  "worker": { "driver": "pi-rpc", "args": ["--mode", "rpc"] },
+  "signIn": { "result": "unknown", "how": "Use Pi's own sign-in in this account. Fleet does not read or copy credentials." },
+  "register": { "kind": "none" },
+  "models": { "flag": "--model", "effort": true },
+  "permissions": {
+    "aliases": {}, "lead": [],
+    "workerMinimum": { "level": 4, "reason": "Pi RPC has no built-in sandbox or native permission-level selector; existing permission extensions remain in force." },
+    "worker": { "1": { "args": [] }, "2": { "args": [] }, "3": { "args": [] }, "4": { "args": [] } },
+    "remove": {
+      "subagents": { "args": ["--exclude-tools", "subagent"] },
+      "shell": { "args": ["--exclude-tools", "bash"] },
+      "web": { "unavailable": "Pi web tools supplied by extensions cannot be removed as a native category." }
+    }
+  }
+}

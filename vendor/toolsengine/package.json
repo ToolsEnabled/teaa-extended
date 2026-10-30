@@ -1,0 +1,55 @@
+{
+  "name": "@toolsenabled/toolsengine",
+  "version": "0.2.0-alpha.4",
+  "description": "Portable, curated ToolsEngine capabilities over stdio MCP.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Joshua Pinckard",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ToolsEnabled/toolsengine.git"
+  },
+  "homepage": "https://toolsenabled.ai/toolsengine/",
+  "bugs": {
+    "url": "https://github.com/ToolsEnabled/toolsengine/issues",
+    "email": "support@toolsenabled.ai"
+  },
+  "bin": {
+    "toolsengine": "bin/toolsengine.js"
+  },
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "files": [
+    "AGENTS.md",
+    "bin",
+    "src",
+    "config",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md",
+    "npm-shrinkwrap.json",
+    "native",
+    "tests/browser-extension.test.js",
+    "tests/support/browser-under-test.js",
+    ".codex-plugin",
+    ".agents/plugins/marketplace.json",
+    "codex-skills",
+    "PRIVACY.md"
+  ],
+  "scripts": {
+    "start": "node bin/toolsengine.js",
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node --test tests/browser.integration.test.js",
+    "audit:package": "node tools/audit-package.js",
+    "build:release": "node tools/build-release.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@playwright/mcp": "0.0.83",
+    "ajv": "8.20.0",
+    "playwright": "1.64.0-alpha-1790635538000"
+  }
+}

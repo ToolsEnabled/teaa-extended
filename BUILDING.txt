@@ -1,0 +1,7 @@
+PRIVATE TEAA Extended (ToolsEnabled Agent Architecture)
+
+Build from a committed source tree and the exact Fleet inputs under the adjacent artifacts/fleet-component-alpha5/ directory (INPUTS.json, linux-a/, and windows-a/). Run python3 scripts/build-reproducible.py to derive and package A and B for both Linux x64 and Windows x64, or pass --target linux-x64 or --target windows-x64 to build one target. The script clones the committed source into isolated A/B trees, validates BASE and Fleet pins, stages the selected Fleet archive, and runs scripts/pack-private.py. It refuses mismatched pins or nonidentical A/B output. Results and a reproducibility receipt are written under the adjacent artifacts/ directory.
+
+For one manual target derivation, run python3 scripts/stage-extended.py --archive PATH_TO_FLEET_V5_ARCHIVE --target linux-x64 (or windows-x64) in a clean source copy, then python3 scripts/pack-private.py. Use separate clean copies for each target. The staged vendor manifest, component locks, source manifest, release identity, and every packaged file are checked by the packer. ToolsEngine, Knowledge, FRA, and Hub identities are separately pinned in the source. Repeating both derivation and packaging from the same committed TEAA source and pinned inputs must produce identical archives.
+
+The Fleet V5 runtime carries inherited alpha.13 metadata; that does not make this TEAA candidate the frozen study artifact. No sign-in, upload, publication, install outside a scratch prefix, or live runtime activation is part of the build.
