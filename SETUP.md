@@ -1,8 +1,12 @@
-See README.md for the TEAA Extended 0.5.0-alpha.5 worktree and its pending qualification boundary.
+See README.md for the TEAA Extended 0.5.0-alpha.9 candidate and qualification instructions.
 
 # Setup
 
-TEAA Extended 0.5.0-alpha.7 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
+TEAA Extended 0.5.0-alpha.9 writes per-user configuration and prepares pinned Fleet V5, ToolsEngine and Knowledge components. Setup does not start FRA, the bundled Hub gateway, an account service, a model, worker, or browser.
+
+## Upgrade in the same prefix
+
+After installing the next TEAA app beside an earlier version in the same prefix, run `teaa setup`. For a verified earlier TEAA app whose Fleet V5 component identity matches the new bundle, setup uses Fleet’s own rebind operation and keeps the existing Fleet state and FRA enrollment. It prints one line after a successful rebind. Other runtime or identity mismatches stop with a TEAA instruction and leave the state unchanged; do not run a Fleet command manually. Stop any Hub or client using the state before retrying. If alpha.7 started the Hub, `teaa hub stop` needs the same `XDG_RUNTIME_DIR` value used at Hub start. See `UPGRADE.md`.
 
 ## Private data path
 

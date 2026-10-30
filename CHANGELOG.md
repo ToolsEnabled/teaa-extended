@@ -1,3 +1,14 @@
+# TEAA Extended 0.5.0-alpha.9 — in-place Fleet runtime upgrade
+
+- Rebind a verified earlier TEAA-managed Fleet runtime in the same prefix when the Fleet component identity matches, preserving existing Fleet state and FRA enrollment.
+- Include the alpha.8 Linux Hub fix that preserves XDG_RUNTIME_DIR in the detached FRA gateway environment.
+- Keep the TEAA BASE 0.5.0-alpha.5 and Fleet 2c37a8a pins.
+
+# TEAA Extended 0.5.0-alpha.8 — Linux Hub runtime environment
+
+- Preserve XDG_RUNTIME_DIR in the detached FRA gateway environment so bridge attach proxies can validate Hub sockets under a normal Linux login runtime directory.
+- Keep the TEAA BASE 0.5.0-alpha.5 and Fleet 2c37a8a pins.
+
 # TEAA Extended 0.5.0-alpha.7 — reconnect and Windows state lifecycle
 
 - Re-establish the Hub session from the same running MCP process after a Hub restart or transient network break; fail an interrupted call promptly with a retryable reset.

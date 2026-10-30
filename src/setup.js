@@ -30,7 +30,9 @@ export async function runSetup({ fleet, engine, knowledge, folder, actor, noBrow
   // Only a complete release carries bundled runtimes. The helper uses upstream setup.
   const bundlePath = new URL('./bundle.js', import.meta.url);
   if (existsSync(bundlePath)) {
-    const { prepareBundledRuntime, rebaseOwnedRuntimeEntries } = await import('./bundle.js');
+    const { prepareBundledRuntime, rebaseOwnedRuntimeEntries, rebindEarlierFleetRuntime } = await import('./bundle.js');
+    const reboundFleet = typeof fleet === 'string' ? null : rebindEarlierFleetRuntime({ fleetConfig: cfg.fleet });
+    if (reboundFleet?.rebound) log(info(`Fleet state rebound from ${reboundFleet.from} to this TEAA runtime; enrollment and Fleet state retained`));
     for (const key of rebaseOwnedRuntimeEntries(cfg)) {
       if (key === FLEET_PIN.runtime.migrationKey) log(info(`This TEAA release bundles ${FLEET_PIN.runtime.name}. Setup creates the pinned generation state; earlier Fleet state is kept unchanged`));
       else log(info(`Updated ${LABELS[key] || key} to this installed TEAA bundle; existing arguments and environment retained`));

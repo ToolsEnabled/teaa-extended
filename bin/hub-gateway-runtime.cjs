@@ -102,7 +102,7 @@ function statusGateway({ dataDirectory, readJson = readPrivateJsonFile, alive = 
 function gatewayEnvironment(source = process.env) {
   const allowed = new Set(['PATH', 'HOME', 'USER', 'LOGNAME', 'TMP', 'TEMP', 'TMPDIR', 'SYSTEMROOT',
     'WINDIR', 'APPDATA', 'LOCALAPPDATA', 'USERPROFILE', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME',
-    'SSL_CERT_FILE', 'SSL_CERT_DIR']);
+    'XDG_RUNTIME_DIR', 'SSL_CERT_FILE', 'SSL_CERT_DIR']);
   return Object.fromEntries(Object.entries(source).filter(([name]) => allowed.has(name.toUpperCase())));
 }
 

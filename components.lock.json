@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "product": "@toolsenabled/teaa",
-  "version": "0.5.0-alpha.7",
-  "qualification": "TEAA Extended 0.5.0-alpha.7: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
+  "version": "0.5.0-alpha.9",
+  "qualification": "TEAA Extended 0.5.0-alpha.9: reproducible Linux x64 and native Windows x64 packages; package-bound FRA CLI and Hub behavior and platform-specific evidence are recorded separately. No hosted production deployment or provider/model calls.",
   "fleet": {
     "version": "5.0.0-alpha.13",
     "commit": "2c37a8a82ec35b014e957e3fe2be827658868658",
@@ -63,7 +63,7 @@
   },
   "edition": "TEAA Extended",
   "derivation": {
-    "teaaSourceCommit": "188465afac8600bff8503031fb874a22a2b37af1",
+    "teaaSourceCommit": "82683c67701d589187ab8b54ff5a6d6ba0b31d37",
     "fleetCommit": "2c37a8a82ec35b014e957e3fe2be827658868658",
     "fleetTarget": "linux-x64",
     "fleetArchiveSha256": "ec3c4dad3a749f535c421ea16f03a6144c809d52ac9528e13e5f40ae98b2c3cb"

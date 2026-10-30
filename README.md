@@ -1,12 +1,14 @@
-# TEAA Extended 0.5.0-alpha.7 — private candidate
+# TEAA Extended 0.5.0-alpha.9 — private candidate
 
-TEAA Extended combines Fleet 5, ToolsEngine, Knowledge, the FRA device client, and the local Fleet Hub gateway lifecycle. This alpha.7 candidate restores an existing Laptop MCP session after a Hub restart or transient network loss, and creates Windows Hub/FRA state through the private-state helper whichever command runs first. BASE remains pinned to TEAA 0.5.0-alpha.5; the included Fleet component identity is recorded in `components.lock.json`.
+TEAA Extended combines Fleet 5, ToolsEngine, Knowledge, the FRA device client, and the local Fleet Hub gateway lifecycle. Alpha.9 includes the alpha.8 fix that preserves the login XDG_RUNTIME_DIR through the detached gateway, allowing a bridge proxy to attach to a Hub using the normal Linux runtime socket. It also rebinds a verified in-place Fleet runtime upgrade while retaining Fleet state and FRA enrollment. BASE remains pinned to TEAA 0.5.0-alpha.5; the included Fleet component identity is recorded in `components.lock.json`.
 
 ## Requirements and setup
 
 This package requires Node.js 22.19 or newer, Python 3.11 or newer, and Git for Knowledge repository operations. The package command and MCP server ID are both `teaa`. Ordinary Fleet V5 contract tools require explicit `--workers` when creating new state. Omitting it preserves workers-off behavior; setup and doctor provide TEAA-specific guidance on `FLEET_V5_WORKERS_REQUIRED`. Preserve existing state and move it aside before creating fresh workers-enabled state. Setup does not start a model, worker, or provider.
 
 Install Node.js 22.19 or newer, Python 3.11 or newer for Knowledge, and Git. Keep Python available to TEAA through the normal user PATH or an explicitly configured runtime; TEAA does not install Python globally. On Linux, run `./install.sh --prefix <owned-prefix>`. On Windows, use the shipped `install.cmd --prefix "C:\Tools\TEAA"`; it invokes packaged Node directly without changing PowerShell execution policy. Uninstall the same prefix with `install.cmd --prefix "C:\Tools\TEAA" --uninstall`. Neither installer changes global PATH or host MCP configuration unless `--add-to-path` is explicitly supplied. Then run `teaa setup --folder <workspace> --actor local --no-browser --workers`, `teaa doctor --json`, and `teaa config --server-json`. Add the emitted `teaa` server entry to the MCP host you choose. Workers are explicitly enabled by `--workers`; setup does not persist an administrator flag.
+
+For an in-place upgrade, install the new app into the existing prefix and run `teaa setup`. A verified same-prefix Fleet V5 upgrade with a matching Fleet component identity is rebound automatically with its existing Fleet state and FRA enrollment intact. See `UPGRADE.md` for mismatch handling and the alpha.7 Hub stop note.
 
 The command is `teaa`. Common operations include `teaa mcp`, `teaa hub start`, `teaa hub status`, `teaa hub stop`, `teaa select-hub`, and `teaa select-local`. Use `teaa open`, `teaa accept`, and `teaa status` for the FRA client workflow. See `SETUP.md`, `EXTENDED-SETUP.md`, `ORCHESTRATOR-GUIDE.md`, and `UPGRADE.md`.
 

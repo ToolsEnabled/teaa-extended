@@ -56,6 +56,135 @@ export function rebaseOwnedRuntimeEntries(cfg, { root = ROOT } = {}) {
   }
   return changed;
 }
+
+function refusal(reason) {
+  return new Error(`TEAA could not automatically rebind Fleet state (${reason}). The state was left unchanged. Run teaa setup from the TEAA release that created this state, or ask your administrator to resolve the runtime mismatch.`);
+}
+
+function fleetIdentity(app) {
+  const lock = JSON.parse(readFileSync(join(app, 'components.lock.json'), 'utf8'));
+  const target = `${process.platform === 'win32' ? 'windows' : 'linux'}-x64`;
+  const fleet = lock?.fleet;
+  if (fleet?.platform !== target || typeof fleet.version !== 'string' || !/^[a-f0-9]{40}$/.test(fleet.commit || '')
+      || !/^[a-f0-9]{64}$/.test(fleet.archiveSha256 || '')
+      || !/^[a-f0-9]{64}$/.test(fleet.identitySha256 || '')
+      || !/^[a-f0-9]{64}$/.test(fleet.packagedFilesSha256 || '')) throw new Error('invalid Fleet component identity');
+  return { version: fleet.version, commit: fleet.commit, archiveSha256: fleet.archiveSha256,
+    identitySha256: fleet.identitySha256, packagedFilesSha256: fleet.packagedFilesSha256 };
+}
+
+function installMarker(app) {
+  const markerPath = join(app, '.teaa-install.json');
+  const stat = lstatSync(markerPath);
+  if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 16 * 1024) throw new Error('invalid TEAA install marker');
+  const marker = JSON.parse(readFileSync(markerPath, 'utf8'));
+  if (marker.product !== '@toolsenabled/teaa' || resolve(marker.app) !== resolve(app)
+      || typeof marker.shim !== 'string' || resolve(marker.shim) !== marker.shim) throw new Error('invalid TEAA install marker');
+  return marker;
+}
+
+function ownedApp(app, shim) {
+  try {
+    const marker = installMarker(app);
+    if (resolve(marker.shim) !== resolve(shim)) return null;
+    const manifest = verifyRelease(app);
+    if (marker.version !== manifest.version) return null;
+    return { app, identity: fleetIdentity(app), marker };
+  } catch { return null; }
+}
+
+function readPriorHostConfig(stateRoot) {
+  if (!existsSync(stateRoot)) return null;
+  try {
+    assertPrivateDataPath(stateRoot);
+    const file = join(stateRoot, 'host-mode.json');
+    let stat;
+    try { stat = lstatSync(file); } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+    if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 16 * 1024
+        || process.platform !== 'win32' && ((stat.mode & 0o077) !== 0 || stat.nlink !== 1
+          || typeof process.getuid === 'function' && stat.uid !== process.getuid())) {
+      throw new Error('Fleet host configuration is not a private regular file');
+    }
+    return JSON.parse(readFileSync(file, 'utf8'));
+  } catch { throw refusal('the saved host configuration could not be verified'); }
+}
+
+function sameComponent(a, b) {
+  return a.version === b.version && a.commit === b.commit && a.archiveSha256 === b.archiveSha256
+    && a.identitySha256 === b.identitySha256 && a.packagedFilesSha256 === b.packagedFilesSha256;
+}
+
+// A failed setup can already have rebased teaa's saved command to this app.
+// Discover the previous app from the host state and verify it beside this app
+// before asking the bundled Fleet CLI to rebind its own state.
+export function rebindEarlierFleetRuntime({ root = ROOT, stateRoot = join(dataDir(), FLEET_PIN.runtime.stateDirectory), fleetConfig, runFleet } = {}) {
+  if (fleetConfig && !fleetConfig.enabled) return null;
+  const currentApp = resolve(root);
+  if (fleetConfig?.command) {
+    const selectsOwnedBundle = (fleetConfig.args || []).some((arg) => {
+      if (typeof arg !== 'string' || !arg.replace(/\\/g, '/').endsWith('/' + FLEET_ENTRY)) return false;
+      const selected = resolve(arg);
+      return selected === resolve(currentApp, ...FLEET_ENTRY.split('/'))
+        || /^\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?$/.test(resolve(selected, '../../../..').split(/[\\/]/).pop())
+          && dirname(resolve(selected, '../../../..')) === dirname(currentApp);
+    });
+    if (!selectsOwnedBundle) return null;
+  }
+  const config = readPriorHostConfig(stateRoot);
+  if (!config) return null;
+  const currentFleetRoot = resolve(currentApp, 'vendor/fleet');
+  const samePath = (a, b) => process.platform === 'win32' ? String(a).toLowerCase() === String(b).toLowerCase() : a === b;
+  const absolute = (value) => typeof value === 'string' && value.length > 0 && resolve(value) === value;
+  if (config.schemaVersion !== 1 || config.mode !== 'host' || config.profile !== 'fleetV2'
+      || config.setupKind !== undefined || config.generation !== 5 || config.treeStorage !== 'sqlite-v1'
+      || typeof config.workers !== 'boolean' || !['unrestricted', 'standard', 'guided'].includes(config.tier || 'unrestricted')
+      || !absolute(config.stateRoot) || !samePath(config.stateRoot, resolve(stateRoot))
+      || !absolute(config.installRoot) || !absolute(config.nodePath) || !absolute(config.workspace)) {
+    throw refusal('the saved configuration is not a standalone TEAA Fleet V5 state');
+  }
+  const savedFleetRoot = resolve(config.installRoot);
+  const sameRuntime = samePath(savedFleetRoot, currentFleetRoot) && samePath(resolve(config.nodePath), resolve(process.execPath));
+  if (sameRuntime) return null;
+
+  let current;
+  try {
+    const marker = installMarker(currentApp);
+    current = ownedApp(currentApp, marker.shim);
+  } catch { current = null; }
+  if (!current) throw refusal('the current TEAA installation could not be verified');
+
+  const appsRoot = dirname(currentApp), candidates = [];
+  let appEntries;
+  try { appEntries = readdirSync(appsRoot, { withFileTypes: true }); } catch { throw refusal('the TEAA install prefix could not be verified'); }
+  for (const entry of appEntries) {
+    if (!entry.isDirectory() || entry.isSymbolicLink() || !/^\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?$/.test(entry.name)) continue;
+    const app = resolve(appsRoot, entry.name), marker = ownedApp(app, current.marker.shim);
+    if (marker && samePath(resolve(app, 'vendor/fleet'), savedFleetRoot)) candidates.push(marker);
+  }
+  if (candidates.length !== 1) throw refusal('the previous runtime is not a verified TEAA installation in this install prefix');
+  let nextIdentity;
+  try { nextIdentity = fleetIdentity(currentApp); } catch { throw refusal('the current Fleet component identity could not be verified'); }
+  if (!sameComponent(candidates[0].identity, nextIdentity)) throw refusal('the previous and current Fleet component identities differ');
+
+  const entry = join(currentApp, ...FLEET_ENTRY.split('/'));
+  const invoke = runFleet || ((fleetEntry, args) => spawnSync(process.execPath, [fleetEntry, ...args], {
+    encoding: 'utf8', windowsHide: true, timeout: 90_000, maxBuffer: 2 * 1024 * 1024,
+    env: inheritedEnv(BUNDLED_FLEET_DROP),
+  }));
+  const result = invoke(entry, ['rebind', '--state-root', stateRoot]);
+  if (result?.error || result?.status !== 0) {
+    const code = /^([A-Z0-9_]+):/.exec(result?.stderr || '')?.[1] || 'FLEET_REBIND_REFUSED';
+    const guidance = code === 'FLEET_V2_REBIND_LIVE'
+      ? 'Stop the TEAA Hub or client using this state, then rerun teaa setup.'
+      : 'Run teaa setup from the TEAA release that created this state, or ask your administrator to resolve the runtime mismatch.';
+    throw new Error(`TEAA could not rebind Fleet state (${code}). ${guidance}`);
+  }
+  let response;
+  try { response = JSON.parse(result.stdout); } catch { throw new Error('TEAA Fleet rebind returned an invalid response; check the state before retrying teaa setup.'); }
+  if (!['rebound', 'not-needed'].includes(response?.rebind)) throw new Error('TEAA Fleet rebind did not confirm the state update; check the state before retrying teaa setup.');
+  return response.rebind === 'rebound' ? { from: savedFleetRoot, to: currentFleetRoot, rebound: true } : null;
+}
+
 export function bundledInfo(root = ROOT) {
   const manifest = join(root, 'vendor', 'manifest.json');
   if (!existsSync(manifest)) return null;
